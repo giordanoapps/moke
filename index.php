@@ -1,5 +1,12 @@
 <?php
+session_start();
+
 require 'facebook-php-sdk-master/src/facebook.php';
+
+if(isset($_SESSION["lista"]))
+  $listaAmigos = $_SESSION["lista"];
+else
+  $listaAmigos = null;
 
 // Create our Application instance (replace this with your appId and secret).
 $facebook = new Facebook(array(
@@ -7,8 +14,12 @@ $facebook = new Facebook(array(
   'secret' => '4406fdb6377380765834ab6f7387a229',
 ));
 
-if(isset($_GET['destroy'])){
-  $facebook->destroySession();
+if(isset($_GET['destroy'])) {
+  if($_GET['destroy'] == "true") {
+    $facebook->destroySession();
+    session_destroy();
+    header("Location: index.php");
+  }
 }
 
 $user = $facebook->getUser();
@@ -25,6 +36,31 @@ if ($user) {
 
 if ($user) {
   $logoutUrl = $facebook->getLogoutUrl();
+
+  if($listaAmigos == null) {
+
+    $lista = $facebook->api('/me/friends');
+    $listaAmigos = array();
+
+    foreach($lista as $amigos) {
+      foreach($amigos as $amigo) {
+        array_push($listaAmigos,$amigo);
+      }
+    }
+
+    $count = count($listaAmigos);
+    for($i=0;$i<$count;$i++) {
+      for($j=$i+1;$j<$count;$j++) {
+        if($listaAmigos[$i]["name"] > $listaAmigos[$j]["name"]) {
+          $aux = $listaAmigos[$i];
+          $listaAmigos[$i] = $listaAmigos[$j];
+          $listaAmigos[$j] = $aux;
+        }
+      }
+    }
+
+    $_SESSION["lista"] = $listaAmigos;
+  }
 } else {
   $loginUrl = $facebook->getLoginUrl();
 }
@@ -34,6 +70,7 @@ if ($user) {
 <html>
     <head>
         <title>jQT Mail</title>
+        <meta charset="utf-8">
         <style type="text/css" media="screen">@import "themes/css/apple.css";</style>
         <style type="text/css" media="screen">@import "themes/css/new.css";</style>
         <style type="text/css" media="screen">
@@ -85,29 +122,29 @@ if ($user) {
               <div id="home2" class="edgetoedge">
             <?php else: ?>
               <div id="home" class="edgetoedge">
-            <?php endif ?>
                     <!-- <a class="button slideup" id="infoButton" href="#about">About</a> -->
                 <div class="toolbar">
                     <h1>MOKE</h1>
                     <!-- <a class="button slideup" id="infoButton" href="#about">About</a> -->
                 </div>
                 <ul class="edgetoedge">
-                    <li><a href="#mailbox">Send a poke</a></li>
+                    <li><a href="#sendpoke">Send a poke</a></li>
                     <li><a href="#mailbox">Poke history</a></li>
                     <li><a rel="external" href="?destroy=true">Logout</a></li>
                 </ul>
             </div>
-            <div id="mailbox" class="edgetoedge">
+            <div id="sendpoke" class="edgetoedge">
                 <div class="toolbar">
                     <a href="#" class="back button"></a>
-                    <h1>Work</h1>
-                    <a class="add slideup" id="newMessageLink" href="#new" name="newMessageLink">+</a>
+                    <h1>MOKE</h1>
+                    <a class="button" id="editLink" href="#" name="editLink">Send</a>
                 </div>
-                <ul class="edgetoedge">
-                    <li><a href="#messages">Inbox</a></li>
-                    <li><a href="#messages">Drafts</a></li>
-                    <li><a href="#messages">Sent</a></li>
-                    <li><a href="#messages">Trash</a></li>
+                <ul id="toPoke" class="edgetoedge">
+                  <?php
+                  foreach($listaAmigos as $amigo) {
+                    echo '<li><input type="checkbox" name="'.$amigo["id"].'"/>&nbsp;'.$amigo["name"].'</li>';
+                  }
+                  ?>
                 </ul>
             </div>
             <div id="messages">
@@ -200,6 +237,7 @@ if ($user) {
                     <a href="#" class="grayButton back">Return</a>
                 </div>
             </div>
+          <?php endif ?>
         </div>
     </body>
     <script src="src/script.js" type="text/javascript" charset="utf-8"></script>
