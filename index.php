@@ -1,56 +1,206 @@
-<!DOCTYPE html>
+<?php
+require 'facebook-php-sdk-master/src/facebook.php';
+
+// Create our Application instance (replace this with your appId and secret).
+$facebook = new Facebook(array(
+  'appId'  => '433999643379630',
+  'secret' => '4406fdb6377380765834ab6f7387a229',
+));
+
+if(isset($_GET['destroy'])){
+  $facebook->destroySession();
+}
+
+$user = $facebook->getUser();
+
+if ($user) {
+  try {
+    // Proceed knowing you have a logged in user who's authenticated.
+    $user_profile = $facebook->api('/me');
+  } catch (FacebookApiException $e) {
+    error_log($e);
+    $user = null;
+  }
+}
+
+if ($user) {
+  $logoutUrl = $facebook->getLogoutUrl();
+} else {
+  $loginUrl = $facebook->getLoginUrl();
+}
+
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
-  <head>
-    <meta charset="utf-8">
-
-    <title>VMap</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-    <!-- Place favicon.ico in the root directory -->
-
-    <link rel="stylesheet" href="css/app.css">
-  </head>
-  <body>
-    <!-- Use this installation button to install locally without going
-         through the marketpace (see app.js) -->
-    <!-- <button id="install-btn">Install</button>     -->
-
-    <x-listview class="list">
-      <header>
-        <h1>VMap</h1>
-       <!-- <button class="add" data-view=".edit" data-animation="slideDown">+</button>-->
-      </header>
-    </x-listview>
-
-    <x-view class="detail">
-      <header>
-        <h1>Details</h1>
-       <!-- <button data-view="x-view.edit">Edit</button>-->
-      </header>
-
-      <h1 class="title"></h1>
-      <p class="desc"></p>
-      <p class="date"></p>
-    </x-view>
-
-    <x-view class="edit">
-      <header><h1>Edit</h1></header>
-      <div class="field">Title: <input type="text" name="title" /></div>
-      <div class="field">Description: <input type="text" name="desc" /></div>
-      <button type="submit" class="add">Add</button>
-    </x-view>
-
-    <div class="loading">Loading...</div>
-
-    <!-- Using require.js, a module system for javascript, include the
-         js files. This loads "main.js", which in turn can load other
-         files, all handled by require.js:
-         http://requirejs.org/docs/api.html#jsfiles -->
-    <script type="text/javascript"
-            data-main="js/init.js"
-            src="js/lib/require.js"></script>
-  </body>
+    <head>
+        <title>jQT Mail</title>
+        <style type="text/css" media="screen">@import "themes/css/apple.css";</style>
+        <style type="text/css" media="screen">@import "themes/css/new.css";</style>
+        <style type="text/css" media="screen">
+            .edgetoedge li a .preview, .edgetoedge li a .subject {
+                display: block;
+                color: #999;
+                font-size: 12px;
+                font-weight: normal;
+            }
+            .edgetoedge li a .subject {
+                color: #000;
+                font-size: 14px;
+            }
+        </style>
+        <script src="src/lib/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="src/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            var jqtouch = $.jQTouch({
+                icon: 'mail.png',
+                preloadImages: [
+                    'themes/jqt/img/chevron.png',
+                    'themes/jqt/img/back_button.png',
+                    'themes/jqt/img/back_button_clicked.png',
+                    'themes/jqt/img/button_clicked.png',
+                    'themes/jqt/img/grayButton.png',
+                    'themes/jqt/img/whiteButton.png'
+                ]
+            });
+            // Add an onload function
+            $(function(){
+                // Dynamically set next page titles after clicking certain links
+                $('#home ul a, #mailbox ul a').click(function(){
+                    $( $(this).attr('href') + ' h1' ).html($(this).html());
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="jqt">
+            <?php if (!$user): ?>
+              <div id="home" class="edgetoedge">
+                  <div class="toolbar">
+                      <h1>MOKE</h1>
+                  </div>
+                  <ul class="edgetoedge">
+                      <li><a rel="external" href="<?php echo $loginUrl; ?>">Login with Facebook</a></li>
+                  </ul>
+              </div>
+              <div id="home2" class="edgetoedge">
+            <?php else: ?>
+              <div id="home" class="edgetoedge">
+            <?php endif ?>
+                    <!-- <a class="button slideup" id="infoButton" href="#about">About</a> -->
+                <div class="toolbar">
+                    <h1>MOKE</h1>
+                    <!-- <a class="button slideup" id="infoButton" href="#about">About</a> -->
+                </div>
+                <ul class="edgetoedge">
+                    <li><a href="#mailbox">Send a poke</a></li>
+                    <li><a href="#mailbox">Poke history</a></li>
+                    <li><a rel="external" href="?destroy=true">Logout</a></li>
+                </ul>
+            </div>
+            <div id="mailbox" class="edgetoedge">
+                <div class="toolbar">
+                    <a href="#" class="back button"></a>
+                    <h1>Work</h1>
+                    <a class="add slideup" id="newMessageLink" href="#new" name="newMessageLink">+</a>
+                </div>
+                <ul class="edgetoedge">
+                    <li><a href="#messages">Inbox</a></li>
+                    <li><a href="#messages">Drafts</a></li>
+                    <li><a href="#messages">Sent</a></li>
+                    <li><a href="#messages">Trash</a></li>
+                </ul>
+            </div>
+            <div id="messages">
+                <div class="toolbar">
+                    <a href="#" class="back button"></a>
+                    <h1>Messages</h1>
+                    <a class="button" id="editLink" href="#" name="editLink">Edit</a>
+                </div>
+                <ul class="edgetoedge">
+                    <li><a href="#message">David Kaneda <span class="subject">Re: jQTouch Alpha 2</span> <span class="preview">This is another span</span></a></li>
+                    <li><a href="#message">John Doe <span class="subject">Your account</span> <span class="preview">This is probably spam.</span></a></li>
+                    <li><a href="#message">Bank of America <span class="subject">Your account</span> <span class="preview">Sample something</span></a></li>
+                    <li><a href="#message">Trash</a></li>
+                </ul>
+            </div>
+            <div id="new" class="edgetoedge">
+                <form>
+                    <div class="toolbar">
+                        <h1>New Message</h1>
+                        <a class="cancel" href="#home">Cancel</a> <a class="button disabled blueButton" href="#">Send</a>
+                    </div>
+                    <fieldset>
+                        <ul class="rounded">
+                            <li><label>To: <input type="text" name="name" value=""></label></li>
+                            <li><label>Cc/Bcc, From:</label> <input type="text" name="bcc" placeholder="you@email.com"></li>
+                            <li><label>Subject:</label> <input type="text" name="subject" placeholder="you@email.com"></li>
+                            <li><textarea>My email</textarea></li>
+                        </ul>
+                    </fieldset>
+                    <input type="submit" />
+                </form>
+            </div>
+            <div id="message"></div>
+            <div id="features">
+                <div class="toolbar">
+                    <h1>Features</h1>
+                    <a class="back button" href="#home">jQTouch</a>
+                </div>
+                <form action="#" method="get" accept-charset="utf-8">
+                    <p><input type="submit" value="Continue →"></p>
+                </form>
+                <div class="pad">
+                    <ul>
+                        <li>One-line setup, with options for selectors, viewport settings, icon path and glossiness, and status bar style</li>
+                        <li>Pages can be built in a single HTML file, or loaded dynamically via GET or POST</li>
+                        <li>Native, hardware-accelerated, page animations, including slide in/out, slide up/down, and 3D flip. All with history support.</li>
+                        <li>Image preloading functions</li>
+                        <li>Easy to theme</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="flipdemo">
+                <div class="pad">
+                    <div style="font-size: 1.5em; text-align: center; margin: 160px 0 160px; font-family: Marker felt;">
+                        Pretty smooth, eh?
+                    </div><a href="#" class="back whiteButton">Go back</a>
+                </div>
+            </div>
+            <form id="formdemo" title="Movie Search" action="search.php" method="post" name="formdemo">
+                <div class="toolbar">
+                    <h1>
+                        Demos
+                    </h1><a class="back button" href="#">Home</a>
+                </div>
+                <div class="pad">
+                    <fieldset>
+                        <div class="row">
+                            <label>Movie</label> <input type="text" name="movie" value="">
+                        </div>
+                        <div class="row">
+                            <label>Zip</label> <input type="text" name="zip" value="">
+                        </div>
+                    </fieldset><input type="submit">
+                </div>
+            </form>
+            <form id="searchForm" class="dialog" action="search.php" name="searchForm">
+                <fieldset>
+                    <h1>Music Search</h1>
+                    <a class="button leftButton" type="cancel">Cancel</a> <a class="button blueButton" type="submit">Search</a> <label>Artist:</label> <input id="artist" type="text" name="artist"> <label>Song:</label> <input type="text" name="song">
+                    <p>This form retrieves the next page with Ajax via a POST request.</p>
+                </fieldset>
+            </form>
+            <div id="license">
+                <div class="pad">
+                    <p><strong>The MIT License</strong></p>
+                    <p>Copyright © 2009 David Kaneda</p>
+                    <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+                    <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+                    <p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+                    <a href="#" class="grayButton back">Return</a>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="src/script.js" type="text/javascript" charset="utf-8"></script>
 </html>

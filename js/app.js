@@ -20,13 +20,18 @@ define(function(require) {
             d.getDate() + '/' +
             d.getFullYear();
     }
+    // Detail view
+
+    var login = $('.login').get(0);
+    login.render = function(item) {
+    };
 
     // List view
 
     var list = $('.list').get(0);
-    list.add({ title: 'Record a video',
+    list.add({ title: 'Send a poke',
                desc: 'Here goes the video'});
-    list.add({ title: 'View Map',
+    list.add({ title: 'Poke history',
                desc: 'Here goes the map'});
 
     list.add({ title: 'Timeline',
