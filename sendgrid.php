@@ -1,6 +1,6 @@
 <?php 
 
-include 'sendgrid-php/SendGrid_loader.php';
+include 'sendgrid-sdk/SendGrid_loader.php';
 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'firebase-php/firebaseLib.php';
+require_once 'firebase-sdk/firebaseLib.php';
 
 class firebaseData{
 	private $fb;

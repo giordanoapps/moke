@@ -1,5 +1,5 @@
 <?php
-require("facebook-php-sdk-master/src/facebook.php");
+require("facebook-sdk/src/facebook.php");
 require("sendgrid.php");
 require("firebase.php");
 
