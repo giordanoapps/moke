@@ -1,7 +1,20 @@
 
 $(document).ready(function(){
-  $("#toPoke li input").bind('click', function() {
-    if($(this).prop('checked'))
-      console.log($(this).attr("name"));
+  $("#sendMoke").bind('click', function() {
+    var id, i = 0;
+    $("#toMoke li input").each(function() {
+      if($(this).prop('checked')) {
+
+        if(i == 0) {
+          id = $(this).attr("name");
+          i++;
+        }
+        else
+          id += ","+$(this).attr("name");
+
+      }
+    })
+
+    window.location = "?sendmoke=true&friend="+id+"#pokesent";
   })
 })
