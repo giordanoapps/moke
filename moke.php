@@ -91,6 +91,7 @@ class moke {
 		$url 	= $track->link;
 		$title 	= $track->title;
 		$band 	= $track->artist->name;
+		$trackId = $track->id;
 
 		$data = array();
 
@@ -111,6 +112,7 @@ class moke {
 		  'deezerUserId' => '' . $_SESSION['deezerUserId'] .'' ,
 		  'artist' => $band,
 		  'track' => $title,
+		  'trackId' => $trackId,
 		  'albumImage' => $url,
 		  'date' => $now->format('Y-m-d H:i:s'),
 		  'receiversFacebookIds' => $friend
@@ -120,6 +122,7 @@ class moke {
 		  'deezerUserId' => '' . $_SESSION['deezerUserId'] .'' ,
 		  'artist' => $band,
 		  'track' => $title,
+		  'trackId' => $trackId,
 		  'albumImage' => $url,
 		  'date' => $now->format('Y-m-d H:i:s'),
 		  'senderFacebookId' => $this->user
