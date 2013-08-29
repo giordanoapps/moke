@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 require 'facebook-php-sdk-master/src/facebook.php';
@@ -65,6 +66,63 @@ if ($user) {
   $loginUrl = $facebook->getLoginUrl();
 }
 
+
+//Deezer setup 
+$urlDeezer = "http://connect.deezer.com/oauth/auth.php?app_id=123703&redirect_uri=http://localhost/moke&perms=basic_access,email";
+
+
+
+
+if($_REQUEST["code"] != null){
+
+    $urlAccessToken = "http://connect.deezer.com/oauth/access_token.php?app_id=123703&secret=91c511cfd4b7aa2b2067d7f8733dd7d0&code=" . $_REQUEST["code"];
+
+    $ch = curl_init();
+    curl_setopt($ch,CURLOPT_URL,$urlAccessToken);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+    curl_setopt($ch,CURLOPT_CONNECTTIMEOUT, 4);
+
+    $response = curl_exec($ch);
+    if(!$response) {
+        echo curl_error($ch);
+    }
+    curl_close($ch);
+    $params    = null;
+    parse_str($response, $params);
+    setcookie("deezer_access_token", $params['access_token']);
+    setcookie("deezer_access_token", $params['access_token'], time() + (10 * 365 * 24 * 60 * 60));  /* expire in 1 hour */
+
+
+    $urlUser = "http://api.deezer.com/2.0/user/me?access_token=" . $params['access_token'];
+    $chs = curl_init();
+    curl_setopt($chs,CURLOPT_URL,$urlUser);
+    curl_setopt($chs,CURLOPT_RETURNTRANSFER,1);
+    curl_setopt($chs,CURLOPT_CONNECTTIMEOUT, 4);
+
+    $responseUser = curl_exec($chs);
+    if(!$responseUser) {
+        echo curl_error($chs);
+    }
+    curl_close($chs);
+    
+
+    $user = json_decode($responseUser, true);
+    $urlPlaylist = "http://api.deezer.com/2.0/user/". $user["id"] . "/tracks?access_token=" . $params['access_token'];
+    $chs = curl_init();
+    curl_setopt($chs,CURLOPT_URL,$urlPlaylist);
+    curl_setopt($chs,CURLOPT_RETURNTRANSFER,1);
+    curl_setopt($chs,CURLOPT_CONNECTTIMEOUT, 4);
+
+    $responseFavorites = curl_exec($chs);
+    if(!$responseFavorites) {
+        echo curl_error($chs);
+    }
+    curl_close($chs);
+    $dados = json_decode($responseFavorites);
+    echo $dados->data[0]->link;
+}
+
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
@@ -117,6 +175,7 @@ if ($user) {
                   </div>
                   <ul class="edgetoedge">
                       <li><a rel="external" href="<?php echo $loginUrl; ?>">Login with Facebook</a></li>
+                      <li><a rel="external" href="<?php echo $urlDeezer; ?>">Login with Deezer</a></li>
                   </ul>
               </div>
               <div id="home2" class="edgetoedge">
