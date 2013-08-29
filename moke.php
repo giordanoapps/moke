@@ -92,6 +92,7 @@ class moke {
 
 		$friend = $params["friend"];
 		$url 	= $track->link;
+		$fotoCover = $track->album->cover;
 		$title 	= $track->title;
 		$band 	= $track->artist->name;
 		$trackId = $track->id;
@@ -118,7 +119,7 @@ class moke {
 		  'artist' => $band,
 		  'track' => $title,
 		  'trackId' => $trackId,
-		  'albumImage' => $url,
+		  'albumImage' => $fotoCover,
 		  'date' => $now->format('y-m-d'),
 		  'receiversFacebookIds' => $friend,
 		  'senderName' => $name
@@ -129,7 +130,7 @@ class moke {
 		  'artist' => $band,
 		  'track' => $title,
 		  'trackId' => $trackId,
-		  'albumImage' => $url,
+		  'albumImage' => $fotoCover,
 		  'date' => $now->format('y-m-d'),
 		  'senderFacebookId' => $this->user,
 		  'senderName' => $name
