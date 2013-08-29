@@ -60,6 +60,7 @@ class deezer{
 
 	    $user = json_decode($responseUser, true);
 	    $this->userId = $user['id'];
+	    $_SESSION['deezerUserId'] = $user['id'];
 	}
 
 	public function getUserFavoriteTracks(){

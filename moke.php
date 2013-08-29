@@ -101,6 +101,39 @@ class moke {
 		$data['description'] = $title.' - '.$band;
 		$data['caption'] = "Join ";
 
+//-------------------------------
+//------------------------------
+require_once 'firebase-php/firebaseLib.php';
+
+$urlFire = 'https://moke.firebaseio.com/';
+$token = 'AFpIBjmV19PRcnAZkoXLywv8iDLLDsoAp6TEmXlP';
+
+$fb = new fireBase($urlFire, $token);
+$now = new DateTime();
+
+$moke = array(
+  'deezerUserId' => '' . $_SESSION['deezerUserId'] .'' ,
+  'facebookId' => $this->user,
+  'artist' => $band,
+  'track' => $title,
+  'albumImage' => $url,
+  'date' => $now->format('Y-m-d H:i:s')
+);
+
+$todoPath = '/'. $this->user . '/' . $now->format('YmdHis');
+$response = $fb->set($todoPath, $moke);
+$responseGet = $fb->get('/'. $this->user . '');
+
+//-------------------------
+//-------------------------
+
+
+
+
+
+
+
+
 		$sendEmail = new sendEmail();
 		$sendEmail::sendEmailToFriend('ricardo@printi.com.br', 'ricardo.parro@gmail.com', "Your friend Mauricio sent you a moke", 
 		'<span>' . "Your friend Mauricio sent you a moke</span><br /><br /><span>", $data['message'] . ' ====> ' . $band  . ' - ' . $title 
