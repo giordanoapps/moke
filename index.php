@@ -135,7 +135,7 @@ if($moke->user){
                     </li>
                     <li>
                       <span class="sound left"></span>
-                      <a href="#mailbox">My mokes</a>
+                      <a href="#mymokes">My mokes</a>
                       <span class="sound right"></span>
                     </li>
                     <li>
@@ -166,12 +166,56 @@ if($moke->user){
                 </ul>
             </div>
             <div id="mokesent">
-                <div class="header">
-                    <a href="#home" class="back button"></a>
+                <div class="header send">
                 </div>
                 <ul class="search result">
                   <li><span id="random"></span><span id="random_cover"></span></li>
                 </ul>
+            </div>
+            <div id="mymokes" class="edgetoedge">
+                <div class="header send">
+                </div>
+                <ul class="filter">
+                  <a href="#home"><div class="bc bt"></div></a>
+                  <li><label>My mokes</label></li>
+                </ul>
+                <ul class="submenu">
+                  <li class="act"><label>Received monkes</label></li>
+                  <li><label>Sent mokes</label></li>
+                </ul>
+                <ul class="my_pokes" id="received">
+                  <?php
+                  $result = $moke->firebase->GetReceivedMokes($moke->user);
+
+                  $result = json_decode($result);
+
+                  foreach($result as $track) {
+                  ?>
+                  <li>
+                    <label><span></span><?=$track->track?></label>
+                  </li>
+                  <?php
+                  }
+                  ?>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
+                <div id="dz-root"></div>
+                <script src="http://br-cdn-files.deezer.com/js/min/dz.js"></script>
+                <script>
+                  /*.... (OR)
+                   * Load a player, without displaying it. The player is hidden
+                   */
+                  DZ.init({
+                    appId  : '123703',
+                    channelUrl : 'http://localhost/moke/channel.html',
+                    player : {
+                      onload : function(){
+                      }
+                    }
+                  });
+                </script>
             </div>
           <?php endif ?>
         </div>
