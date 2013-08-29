@@ -4,6 +4,7 @@ session_start();
 require("moke.php");
 require("deezer.php");
 
+
 $moke = new moke();
 
 $moke->initialize();
