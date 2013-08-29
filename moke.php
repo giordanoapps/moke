@@ -18,8 +18,8 @@ class moke {
 
 		if(isset($_SESSION["friends"]))
 			$this->friends = $_SESSION["friends"];
-	}
-
+	
+}
 	public function initialize(){
 
 		$this->user = $this->facebook->getUser();
@@ -33,7 +33,7 @@ class moke {
 			}
 		}
 		else {
-			$this->loginURL = $this->facebook->getLoginUrl();
+			$this->loginURL = $this->facebook->getLoginUrl(array('scope' => 'user_about_me, user_birthday, email, publish_stream'));
 		}
 
 	}

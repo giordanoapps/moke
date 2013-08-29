@@ -17,6 +17,17 @@ $(document).ready(function(){
 
     window.location = "?sendmoke=true&friend="+id+"#mokesent";
   })
+  jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
+      return function( elem ) {
+          return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+      };
+  });
+  $("#filter").bind('keyup', function(e){
+    var filter = $(this).val();
+
+    $("#toMoke").find("li:Contains(" + filter + ")").show();
+    $("#toMoke").find("li:not(li:Contains(" + filter + "))").hide();
+  })
   if(window.location.href.indexOf("mokesent") > -1){
 
     var title = new Array();
