@@ -1290,7 +1290,6 @@ body {
   font: bold 18px "Helvetica Neue", Helvetica;
   margin: 10px 20px 6px;
   color: #5c6d7b;
-  text-shadow: #e8ebee 0 1px 0;
 }
 /* line 41, ../scss/include/_skeleton.scss */
 #jqt .toolbar {
@@ -1319,7 +1318,6 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
   color: white;
-  text-shadow: #5c718e 0 -1px 0;
 }
 /* line 71, ../scss/include/_skeleton.scss */
 #jqt.black-translucent .toolbar {
@@ -1350,7 +1348,6 @@ body {
   margin: 0;
   padding: 0 10px;
   color: white;
-  text-shadow: #3e5779 0 -1px 0;
   -webkit-box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0, rgba(0, 0, 0, 0.2) 0 1px 2px inset;
   box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0, rgba(0, 0, 0, 0.2) 0 1px 2px inset;
   border: 1px solid #2d3f57;
@@ -1371,7 +1368,6 @@ body {
   background-image: -webkit-linear-gradient(top, #6b89b2, #50709a 50%, #476489 51%, #3e5779);
   background-image: linear-gradient(top, #6b89b2, #50709a 50%, #476489 51%, #3e5779);
   color: white;
-  text-shadow: #364b68 0 -1px 0;
 }
 /* line 114, ../scss/include/_skeleton.scss */
 #jqt .back {
@@ -1431,7 +1427,6 @@ body {
 #jqt .blueButton {
   background-image: #2f7ce3, glossy;
   color: white;
-  text-shadow: #1a63c5 0 -1px 0;
 }
 /* line 170, ../scss/include/_skeleton.scss */
 #jqt .whiteButton, #jqt .grayButton, #jqt .redButton, #jqt .blueButton, #jqt .greenButton {
@@ -1455,7 +1450,6 @@ body {
   background-image: -webkit-linear-gradient(top, #4775d1, #2e5cb8 50%, #2952a3 51%, #24478f);
   background-image: linear-gradient(top, #4775d1, #2e5cb8 50%, #2952a3 51%, #24478f);
   color: white;
-  text-shadow: #1f3d7a 0 -1px 0;
 }
 /* line 191, ../scss/include/_skeleton.scss */
 #jqt .whiteButton {
@@ -1465,7 +1459,6 @@ body {
   background-image: -webkit-linear-gradient(top, #ffffff, #fbfbfb 50%, #eeeeee 51%, #e1e1e1);
   background-image: linear-gradient(top, #ffffff, #fbfbfb 50%, #eeeeee 51%, #e1e1e1);
   color: #151515;
-  text-shadow: white 0 1px 0;
 }
 /* line 195, ../scss/include/_skeleton.scss */
 #jqt .grayButton {
@@ -1475,7 +1468,6 @@ body {
   background-image: -webkit-linear-gradient(top, #6a6a6a, #515151 50%, #444444 51%, #373737);
   background-image: linear-gradient(top, #6a6a6a, #515151 50%, #444444 51%, #373737);
   color: white;
-  text-shadow: #2b2b2b 0 -1px 0;
 }
 /* line 200, ../scss/include/_skeleton.scss */
 #jqt .redButton {
@@ -1485,7 +1477,6 @@ body {
   background-image: -webkit-linear-gradient(top, #e57a78, #dc504d 50%, #d83b38 51%, #ce2c28);
   background-image: linear-gradient(top, #e57a78, #dc504d 50%, #d83b38 51%, #ce2c28);
   color: white;
-  text-shadow: #b92724 0 -1px 0;
 }
 /* line 204, ../scss/include/_skeleton.scss */
 #jqt .redButton.active, #jqt .redButton:active {
@@ -1495,7 +1486,6 @@ body {
   background-image: -webkit-linear-gradient(top, #de5856, #d52e2b 50%, #c12926 51%, #ac2422);
   background-image: linear-gradient(top, #de5856, #d52e2b 50%, #c12926 51%, #ac2422);
   color: white;
-  text-shadow: #97201e 0 -1px 0;
 }
 /* line 211, ../scss/include/_skeleton.scss */
 #jqt .greenButton {
@@ -1505,7 +1495,6 @@ body {
   background-image: -webkit-linear-gradient(top, #7094db, #4775d1 50%, #3366cc 51%, #2e5cb8);
   background-image: linear-gradient(top, #7094db, #4775d1 50%, #3366cc 51%, #2e5cb8);
   color: white;
-  text-shadow: #2952a3 0 -1px 0;
 }
 /* line 216, ../scss/include/_skeleton.scss */
 #jqt .leftButton, #jqt .cancel, #jqt .back {
@@ -1528,7 +1517,6 @@ body {
 #jqt ul, #jqt ul.individual li {
   background-color: white;
   color: gray;
-  text-shadow: white 0 1px 0;
   border: 1px solid #d9d9d9;
   font: bold 18px "Helvetica Neue", Helvetica;
 }
@@ -1557,7 +1545,6 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-transform: translateZ(0);
   color: #262626;
-  text-shadow: white 0 1px 0;
 }
 /* line 265, ../scss/include/_skeleton.scss */
 #jqt ul li a.active {
@@ -1566,12 +1553,10 @@ body {
   -webkit-box-shadow: #4372d0 0 1px 0px inset;
   box-shadow: #4372d0 0 1px 0px inset;
   color: white;
-  text-shadow: #2952a3 0 -1px 0;
 }
 /* line 270, ../scss/include/_skeleton.scss */
 #jqt ul li a.active small {
   color: #adc2eb;
-  text-shadow: #0a1429 0 -1px 0;
 }
 /* line 271, ../scss/include/_skeleton.scss */
 #jqt ul li a.active small.counter {
@@ -1597,7 +1582,6 @@ body {
 #jqt ul li small.counter {
   background: #d9d9d9;
   color: #595959;
-  text-shadow: #e6e6e6 0 1px 0;
   z-index: 10;
   font-size: 16px;
   font-weight: bold;
@@ -1609,7 +1593,6 @@ body {
 /* line 311, ../scss/include/_skeleton.scss */
 #jqt ul li ::-webkit-input-placeholder {
   color: #8293a1;
-  text-shadow: #e8ebee 0 1px 0;
 }
 /* line 322, ../scss/include/_skeleton.scss */
 #jqt ul li input[type="text"],
@@ -1621,7 +1604,6 @@ body {
 #jqt ul li input[type="url"],
 #jqt ul li textarea, #jqt ul li select {
   color: black;
-  text-shadow: #e8ebee 0 1px 0;
   background: transparent url("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
   border: 0;
   font: normal 17px "Helvetica Neue", Helvetica;
@@ -1656,7 +1638,6 @@ body {
   width: 246px;
   margin: 0 0 0 17px;
   color: black;
-  text-shadow: #e8ebee 0 1px 0;
 }
 /* line 355, ../scss/include/_skeleton.scss */
 #jqt ul li input[type='submit'] {
@@ -1704,7 +1685,6 @@ body {
 /* line 395, ../scss/include/_skeleton.scss */
 #jqt ul li.forward:after {
   color: white;
-  text-shadow: #2952a3 0 -1px 0;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
   font-size: 24px;
@@ -1933,7 +1913,6 @@ body {
   background-image: -webkit-linear-gradient(top, #aeb9c2, #bcc5cd 10%, #cbd2d8 65%, #ccd3d9);
   background-image: linear-gradient(top, #aeb9c2, #bcc5cd 10%, #cbd2d8 65%, #ccd3d9);
   color: black;
-  text-shadow: #e8ebee 0 1px 0;
   border-bottom: 1px solid #b5c1c9;
   border-top: 1px solid #b5c1c9;
 }
@@ -1952,7 +1931,6 @@ body {
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid #9c9ea5;
   font-size: 26px;
-  text-shadow: #fff 0 1px 0;
 }
 /* line 72, ../scss/apple.scss */
 #jqt ul.metal li a:hover {
@@ -1965,7 +1943,6 @@ body {
 /* line 80, ../scss/apple.scss */
 #jqt .info {
   background: #dce1eb;
-  text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;
   color: #4c566c;
   border-top: 1px solid rgba(76, 86, 108, 0.3);
 }

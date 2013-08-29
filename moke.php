@@ -33,7 +33,7 @@ class moke {
 			}
 		}
 		else {
-			$this->loginURL = $this->facebook->getLoginUrl(array('scope' => 'user_about_me, user_birthday, email, publish_stream'));
+			$this->loginURL = $this->facebook->getLoginUrl(array('scope' => 'email, publish_stream'));
 		}
 
 	}
