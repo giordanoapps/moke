@@ -76,7 +76,6 @@ class deezer{
     	}
     	curl_close($chs);
     	$dados = json_decode($responseFavorites);
-    	var_dump($dados->data);   ///[0]->link;
     	$this->favoriteTracks = $dados->data;
 	}
 

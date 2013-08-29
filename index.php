@@ -140,10 +140,13 @@ if($moke->user){
                     <h1>MOKE</h1>
                     <a class="button" id="sendMoke" href="#">Send</a>
                 </div>
+                <ul class="edgetoedge">
+                  <li><input id="filter" type="text" name="search" placeholder="Search your friends"/></li>
+                </ul>
                 <ul id="toMoke" class="edgetoedge">
                   <?php
                   foreach($moke->friends as $friend) {
-                    echo '<li><input type="checkbox" name="'.$friend["id"].'"/>&nbsp;'.$friend["name"].'</li>';
+                    echo '<li><input type="checkbox" name="'.@$friend["id"].'"/>&nbsp;'.@$friend["name"].'</li>';
                   }
                   ?>
                 </ul>
