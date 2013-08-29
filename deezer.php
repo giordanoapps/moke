@@ -8,7 +8,7 @@ class deezer{
 
 	public function __construct(){
 
-		$this->oAuth = "http://connect.deezer.com/oauth/auth.php?app_id=123703&redirect_uri=".urlencode("http://localhost/moke/")."&perms=basic_access,email";
+		$this->oAuth = "http://connect.deezer.com/oauth/auth.php?app_id=123703&redirect_uri=".urlencode("http://moke.herokuapp.com/")."&perms=basic_access,email";
 		$this->access_token = null;
 
 	}
