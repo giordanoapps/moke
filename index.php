@@ -193,7 +193,12 @@ if($moke->user){
                   foreach($result as $track) {
                   ?>
                   <li>
-                    <label><span></span><?=$track->track?></label>
+                    <label>
+                      <span></span>
+                      <?=$track->track?>
+                    </label>
+                    <span class="music"><span class="orange">Music:</span> <?=$track->track?></span>
+                    <span class="artist"><span class="orange">Artist:</span> <?=$track->artist?></span>
                   </li>
                   <?php
                   }
