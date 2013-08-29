@@ -6,9 +6,21 @@ class deezer{
 	public $oAuth;
 	public $favoriteTracks;
 
+	public function curPageURL() {
+	 	$pageURL = 'http';
+		if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+			$pageURL .= "://";
+		if ($_SERVER["SERVER_PORT"] != "80") {
+			$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+		} else {
+			$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+		}
+		return $pageURL;
+	}
+
 	public function __construct(){
 
-		$this->oAuth = "http://connect.deezer.com/oauth/auth.php?app_id=123703&redirect_uri=".urlencode("http://".$_SERVER['SERVER_NAME']."/")."&perms=basic_access,email";
+		$this->oAuth = "http://connect.deezer.com/oauth/auth.php?app_id=123703&redirect_uri=".urlencode($this->curPageURL())."&perms=basic_access,email";
 		$this->access_token = null;
 
 	}

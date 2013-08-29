@@ -210,28 +210,30 @@ if($moke->user){
                 <div id="dz-root"></div>
                 <script src="http://br-cdn-files.deezer.com/js/min/dz.js"></script>
                 <script>
+                DZ.init({
+                  appId  : '123703',
+                  channelUrl : 'http://localhost/moke/channel.html',
+                  player : {
+                    onload : function(){
+                    }
+                  }
+                });
                 $(".headphone").bind('click', function() {
-                  debugger();
+
                   var trackId = $(this).attr("data-track");
 
                   if($(this).hasClass("active")) {
+
                     $(this).toggleClass("active");
                     $(this).css("background-image","url(../../img/pause.png");
                     DZ.player.pause();
+
                   }
                   else {
                     
+                    DZ.player.playTracks([trackId])
                     $(this).css("background-image","url(../../img/headphone.png");
                     $(this).toggleClass("active");
-                    DZ.init({
-                      appId  : '123703',
-                      channelUrl : 'http://localhost/moke/channel.html',
-                      player : {
-                        onload : function(){
-                          DZ.player.playTracks([trackId])
-                        }
-                      }
-                    });
 
                   }
                 });
