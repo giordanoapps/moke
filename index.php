@@ -203,25 +203,9 @@ if($moke->user){
                   <?php
                   }
                   ?>
-                  <li></li>
-                  <li></li>
-                  <li></li>
                 </ul>
                 <div id="dz-root"></div>
                 <script src="http://br-cdn-files.deezer.com/js/min/dz.js"></script>
-                <script>
-                  /*.... (OR)
-                   * Load a player, without displaying it. The player is hidden
-                   */
-                  DZ.init({
-                    appId  : '123703',
-                    channelUrl : 'http://localhost/moke/channel.html',
-                    player : {
-                      onload : function(){
-                      }
-                    }
-                  });
-                </script>
             </div>
           <?php endif ?>
         </div>

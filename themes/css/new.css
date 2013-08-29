@@ -307,7 +307,7 @@ input[type="checkbox"]:checked + label span {
 .orange {
 	color: #ffd9b0;
 }
-.calendar,
+div.calendar,
 .headphone {
 	width: 32px;
 	height: 32px;
@@ -318,4 +318,18 @@ input[type="checkbox"]:checked + label span {
 }
 .headphone {
 	background-image: url("../../img/headphone.png");
+	position: absolute;
+	top: 51px;
+	right: 10px;
+}
+div.calendar {
+	position: absolute;
+	top: 4px;
+	right: 62px;
+}
+label.calendar {
+	font-size: 15px;
+	position: absolute;
+	top: 12px;
+	right: 31px;
 }

@@ -1,5 +1,20 @@
 
 $(document).ready(function(){
+
+  $("#player").bind('click', function() {
+    /*.... (OR)
+     * Load a player, without displaying it. The player is hidden
+     */
+    DZ.init({
+      appId  : '123703',
+      channelUrl : 'http://localhost/moke/channel.html',
+      player : {
+        onload : function(){
+          DZ.player.playTracks([''])
+        }
+      }
+    });
+  });
   $("#sendMoke").bind('click', function() {
     var id, i = 0;
     $("#toMoke li input").each(function() {
