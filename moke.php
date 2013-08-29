@@ -106,6 +106,8 @@ class moke {
 		$data['description'] = $title.' - '.$band;
 		$data['caption'] = "Join ";
 
+		$me = $this->facebook->api('/me');
+		$name = $me['name'];
 
 		//Firebase SET DATA
 
@@ -119,7 +121,7 @@ class moke {
 		  'albumImage' => $url,
 		  'date' => $now->format('Y-m-d'),
 		  'receiversFacebookIds' => $friend,
-		  'senderName' => $this->facebook->api('/me')["name"]
+		  'senderName' => $name
 		);
 
 		$receivedMoke = array(
