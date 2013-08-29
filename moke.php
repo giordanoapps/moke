@@ -119,7 +119,7 @@ class moke {
 		  'track' => $title,
 		  'trackId' => $trackId,
 		  'albumImage' => $url,
-		  'date' => $now->format('Y-m-d'),
+		  'date' => $now->format('y-m-d'),
 		  'receiversFacebookIds' => $friend,
 		  'senderName' => $name
 		);
@@ -130,8 +130,9 @@ class moke {
 		  'track' => $title,
 		  'trackId' => $trackId,
 		  'albumImage' => $url,
-		  'date' => $now->format('Y-m-d'),
-		  'senderFacebookId' => $this->user
+		  'date' => $now->format('y-m-d'),
+		  'senderFacebookId' => $this->user,
+		  'senderName' => $name
 		);
 
 		$this->firebase->SetMoke($this->user, $sentMoke, $friend, $receivedMoke, $now);
