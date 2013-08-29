@@ -94,7 +94,7 @@ class moke {
 		$url 	= $track->link;
 		$title 	= $track->title;
 		$band 	= $track->artist->name;
-		$trackId 	= $track->id;
+		$trackId = $track->id;
 
 		$data = array();
 
