@@ -1,5 +1,6 @@
 <?php
 require("facebook-php-sdk-master/src/facebook.php");
+require("sendgrid.php");
 
 class moke {
 
@@ -100,11 +101,17 @@ class moke {
 		$data['description'] = $title.' - '.$band;
 		$data['caption'] = "Join ";
 
+		$sendEmail = new sendEmail();
+		$sendEmail::sendEmailToFriend('ricardo@printi.com.br', 'ricardo.parro@gmail.com', "Your friend Mauricio sent you a moke", 
+		'<span>' . "Your friend Mauricio sent you a moke</span><br /><br /><span>", $data['message'] . ' ====> ' . $band  . ' - ' . $title 
+			. ' : ' . $url . '</span><br /><br /><img style="width:200px" src="'. $track->album->cover.'" />');	
+
 		$ret_obj = $this->facebook->api('/me/feed', 'POST', $data);
 
 		$params = array();
 		array_push($params, $deezer->favoriteTracks);
 		array_push($params, $random);
+
 
 		return $params;
 	}
