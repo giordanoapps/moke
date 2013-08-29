@@ -63,7 +63,7 @@ class moke {
 			for($i=0;$i<$count;$i++) {
 				for($j=$i+1;$j<$count;$j++) {
 
-					if($this->friends[$i]["name"] > $this->friends[$j]["name"]) {
+					if(@strcmp($this->friends[$i]["name"], $this->friends[$j]["name"]) > 0) {
 						$aux = $this->friends[$j];
 						$this->friends[$j] = $this->friends[$i];
 						$this->friends[$i] = $aux;
