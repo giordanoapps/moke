@@ -14,7 +14,7 @@ class sendEmail{
 
 		$urlSendGrid = "http://sendgrid.com/api/mail.send.json?api_user=ricardo.parro&api_key=moke2013&to[]=ricardo.parro@gmail.com&toname[]=Ricardo&subject=". 
 		urlencode($subject) ."&text=". urlencode($text) ."&html=". urlencode($html) ."&from=info@domain.co";
-	    var_dump($urlSendGrid);
+	   
 	    $chs = curl_init();
 	    curl_setopt($chs,CURLOPT_URL,$urlSendGrid);
 	    curl_setopt($chs,CURLOPT_RETURNTRANSFER,1);
@@ -25,8 +25,6 @@ class sendEmail{
 	        echo curl_error($chs);
 	    }
 	    curl_close($chs);
-		var_dump($responseEmail);
-		die();
 		
 	}
 }
