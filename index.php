@@ -63,6 +63,7 @@ if($moke->user){
     <head>
         <title>MOKE</title>
         <meta charset="utf-8">
+        <link href='http://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
         <style type="text/css" media="screen">@import "themes/css/apple.css";</style>
         <style type="text/css" media="screen">@import "themes/css/new.css";</style>
         <style type="text/css" media="screen">
@@ -105,58 +106,70 @@ if($moke->user){
         <div id="jqt">
             <?php if (!$moke->user): ?>
               <div id="home" class="edgetoedge">
-                  <div class="toolbar">
-                      <h1>MOKE</h1>
+                  <div class="header">
                   </div>
-                  <ul class="edgetoedge">
+                  <ul class="homemenu login">
                     <li><a rel="external" href="<?php echo $moke->loginURL; ?>">Login with Facebook</a></li>
                   </ul>
               </div>
             <?php elseif ($deezer->accessToken == null): ?>
               <div id="home" class="edgetoedge">
-                  <div class="toolbar">
-                      <h1>MOKE</h1>
+                  <div class="header">
                   </div>
-                  <ul class="edgetoedge">
+                  <ul class="homemenu login">
+
                     <li><a rel="external" href="<?php echo $deezer->oAuth; ?>">Login with Deezer</a></li>
                   </ul>
               </div>
             <?php else: ?>
               <div id="home" class="edgetoedge">
                     <!-- <a class="button slideup" id="infoButton" href="#about">About</a> -->
-                <div class="toolbar">
-                    <h1>MOKE</h1>
+                <div class="header">
                     <!-- <a class="button slideup" id="infoButton" href="#about">About</a> -->
                 </div>
-                <ul class="edgetoedge">
-                    <li><a href="#sendmoke">Send a moke</a></li>
-                    <li><a href="#mailbox">moke history</a></li>
-                    <li><a rel="external" href="?destroy=true">Logout</a></li>
+                <ul class="homemenu def">
+                    <li>
+                      <span class="sound left"></span>
+                      <a href="#sendmoke">Send a moke</a>
+                      <span class="sound right"></span>
+                    </li>
+                    <li>
+                      <span class="sound left"></span>
+                      <a href="#mailbox">My mokes</a>
+                      <span class="sound right"></span>
+                    </li>
+                    <li>
+                      <span class="sound left"></span>
+                      <a rel="external" href="?destroy=true">Logout</a>
+                      <span class="sound right"></span>
+                    </li>
                 </ul>
+                <div class="bottom">
+                </div>
             </div>
             <div id="sendmoke" class="edgetoedge">
-                <div class="toolbar">
-                    <a href="#" class="back button"></a>
-                    <h1>MOKE</h1>
-                    <a class="button" id="sendMoke" href="#">Send</a>
+                <div class="header send">
                 </div>
-                <ul class="edgetoedge">
-                  <li><input id="filter" type="text" name="search" placeholder="Search your friends"/></li>
+                <ul class="filter">
+                  <a href="#home"><div class="bc bt"></div></a>
+                  <li><input id="filter" type="text" name="search" placeholder="Choose your friends"/></li>
+                  <a id="sendMoke" href="#"><div class="sd bt"></div></a>
                 </ul>
-                <ul id="toMoke" class="edgetoedge">
+                <ul id="toMoke" class="search">
                   <?php
+                  $i = 0;
                   foreach($moke->friends as $friend) {
-                    echo '<li><input type="checkbox" name="'.@$friend["id"].'"/>&nbsp;'.@$friend["name"].'</li>';
+                    echo '<li><input type="checkbox" id="c'.$i.'" name="'.@$friend["id"].'"/><label for="c'.$i.'"><span></span>'.@$friend["name"].'</label></li>';
+                    $i++;
                   }
                   ?>
                 </ul>
             </div>
             <div id="mokesent">
-                <div class="toolbar">
+                <div class="header">
                     <a href="#home" class="back button"></a>
-                    <h1>MOKE</h1>
                 </div>
-                <ul class="edgetoedge">
+                <ul class="search result">
                   <li><span id="random"></span><span id="random_cover"></span></li>
                 </ul>
             </div>

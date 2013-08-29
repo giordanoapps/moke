@@ -1,16 +1,16 @@
 {
   "version": "0.1",
-  "name": "My App",
-  "description": "Your new awesome Open Web App",
+  "name": "Moke",
+  "description": "Moke the Music Poke",
   "launch_path": "/index.html",
   "icons": {
-    "16": "/img/icons/mortar-16.png",
-    "48": "/img/icons/mortar-48.png",
-    "128": "/img/icons/mortar-128.png"
+    "16": "/icon.png",
+    "48": "/icon.png",
+    "128": "/icon_128.png"
   },
   "developer": {
-    "name": "Your Name",
-    "url": "http://yourawesomeapp.com"
+    "name": "Moke",
+    "url": "http://moke.herokuapp.com/"
   },
   "installs_allowed_from": ["*"],
   "appcache_path": "/cache.manifest",

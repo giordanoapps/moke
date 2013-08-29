@@ -17,16 +17,72 @@ $(document).ready(function(){
 
     window.location = "?sendmoke=true&friend="+id+"#mokesent";
   })
+  /*
   jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
       return function( elem ) {
           return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
       };
-  });
+  });*/
+var accent_map = {
+      'á':'a',
+      'à':'a',
+      'â':'a',
+      'å':'a',
+      'ä':'a',
+      'a':'a',
+      'ã':'a',
+      'ç':'c',
+      'é':'e',
+      'è':'e',
+      'ê':'e',
+      'ë':'e',
+      'í':'i',
+      'ì':'i',
+      'î':'i',
+      'ï':'i',
+      'ñ':'n',
+      'ó':'o',
+      'ò':'o',
+      'ô':'o',
+      'ö':'o',
+      'õ':'o',
+      'ú':'u',
+      'ù':'u',
+      'û':'u',
+      'ü':'u',};
+ 
+ 
+      String.prototype.replaceEspecialChars = function() {
+        var ret = '', s = this.toString();
+        if (!s) { return ''; }
+        for (var i=0; i<s.length; i++) {
+          ret += accent_map[s.charAt(i)] || s.charAt(i);
+        }
+        return ret;
+      };
+ 
+      String.prototype.contains = function(otherString) {
+        return this.toString().indexOf(otherString) !== -1;
+      };
+ 
+ 
+      $.extend($.expr[':'], {
+ 
+        'contains-IgnoreAccents' : function(elemt, idx, math) {
+          
+          var expression1 = math[3].toLowerCase(),
+            semAcent1 = expression1.replaceEspecialChars(),
+            expression2 = elemt.innerHTML.toLowerCase(),
+            semAcent2 = expression2.replaceEspecialChars();
+ 
+          return semAcent2.contains(semAcent1);       
+        }
+    });
   $("#filter").bind('keyup', function(e){
     var filter = $(this).val();
 
-    $("#toMoke").find("li:Contains(" + filter + ")").show();
-    $("#toMoke").find("li:not(li:Contains(" + filter + "))").hide();
+    $("#toMoke").find("li:contains-IgnoreAccents(" + filter + ")").show();
+    $("#toMoke").find("li:not(li:contains-IgnoreAccents(" + filter + "))").hide();
   })
   if(window.location.href.indexOf("mokesent") > -1){
 
@@ -57,7 +113,7 @@ $(document).ready(function(){
 
       console.log(j);
 
-      content = title[j] + " - " + artist[j];
+      content = artist[j] + "<br/>" + title[j];
       content_cover = "<img class='cover' src='"+cover[j]+"'/>";
 
       target.html(content);
@@ -71,7 +127,7 @@ $(document).ready(function(){
       if(i >= size || i >= 8){
         clearInterval(loop);
 
-        content = title[selected] + " - " + artist[selected] + " !!!";
+        content = "<span style='color:#e67e22'>"+artist[selected] + "<br/>" + title[selected]+"</span>";
         content_cover = "<img class='cover' src='"+cover[selected]+"'/>";
         target.html(content);
         target_cover.html(content_cover);
