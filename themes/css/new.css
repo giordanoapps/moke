@@ -325,11 +325,11 @@ div.calendar,
 div.calendar {
 	position: absolute;
 	top: 4px;
-	right: 62px;
+	right: 80px;
 }
 label.calendar {
 	font-size: 15px;
 	position: absolute;
 	top: 12px;
-	right: 31px;
+	right: 8px;
 }
