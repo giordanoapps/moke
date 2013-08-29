@@ -21,12 +21,15 @@ $(document).ready(function(){
 
     var title = new Array();
     var artist = new Array();
+    var cover = new Array();
     $(".random").each(function(){
       title.push($(this).attr("data-title"));
       artist.push($(this).attr("data-artist"));
+      cover.push($(this).attr("data-cover"));
     });
 
     var target = $("#random");
+    var target_cover = $("#random_cover");
     var selected = $(".random.selected").attr("data-i");
     var i = 0;
     var j = 0;
@@ -34,6 +37,7 @@ $(document).ready(function(){
     var content;
 
     target.fadeOut();
+    target_cover.fadeOut();
 
     var loop = setInterval(function(){
     
@@ -43,9 +47,13 @@ $(document).ready(function(){
       console.log(j);
 
       content = title[j] + " - " + artist[j];
+      content_cover = "<img class='cover' src='"+cover[j]+"'/>";
+
       target.html(content);
+      target_cover.html(content_cover);
 
       target.fadeIn(500).fadeOut(500);
+      target_cover.fadeIn(500).fadeOut(500);
 
       i++;
 
@@ -53,9 +61,12 @@ $(document).ready(function(){
         clearInterval(loop);
 
         content = title[selected] + " - " + artist[selected] + " !!!";
+        content_cover = "<img class='cover' src='"+cover[selected]+"'/>";
         target.html(content);
+        target_cover.html(content_cover);
 
         target.fadeIn();
+        target_cover.fadeIn();
       }
 
     }, 1000);

@@ -48,9 +48,9 @@ if($moke->user){
     $i = 0;
     foreach($tracks as $track){
       if($i == $selected)
-        echo '<div style="display:none" data-i="'.$selected.'" class="random selected" data-title="'.$track->title.'" data-artist="'.$track->artist->name.'"></div>';
+        echo '<div style="display:none" data-i="'.$selected.'" class="random selected" data-title="'.$track->title.'" data-artist="'.$track->artist->name.'" data-cover="'.$track->album->cover.'"></div>';
       else
-        echo '<div style="display:none" class="random" data-title="'.$track->title.'" data-artist="'.$track->artist->name.'"></div>';
+        echo '<div style="display:none" class="random" data-cover="'.$track->album->cover.'" data-title="'.$track->title.'" data-artist="'.$track->artist->name.'"></div>';
 
       $i++;
     }
@@ -154,7 +154,7 @@ if($moke->user){
                     <h1>MOKE</h1>
                 </div>
                 <ul class="edgetoedge">
-                  <li id="random"></li>
+                  <li><span id="random"></span><span id="random_cover"></span></li>
                 </ul>
             </div>
           <?php endif ?>
