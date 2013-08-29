@@ -197,7 +197,7 @@ if($moke->user){
                       <span></span>
                       <?=$track->senderName?>
                     </label>
-                    <img class="cover" src="<?=$track->albumImage?>"/>
+                    <img class="cover_2" src="<?=$track->albumImage?>"/>
                     <span class="music"><?=$track->track?></span>
                     <span class="artist"><?=$track->artist?></span>
                     <div class="headphone" data-track="<?=$track->trackId?>"></div>
@@ -221,7 +221,7 @@ if($moke->user){
                       <span></span>
                       <?=$track->senderName?>
                     </label>
-                    <img class="cover" src="<?=$track->albumImage?>"/>
+                    <img class="cover_2" src="<?=$track->albumImage?>"/>
                     <span class="music"><?=$track->track?></span>
                     <span class="artist"><?=$track->artist?></span>
                     <div class="headphone" data-track="<?=$track->trackId?>"></div>
