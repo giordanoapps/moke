@@ -1,6 +1,7 @@
 <?php
 require("facebook-php-sdk-master/src/facebook.php");
 require("sendgrid.php");
+require("firebase.php");
 
 class moke {
 
@@ -101,61 +102,35 @@ class moke {
 		$data['description'] = $title.' - '.$band;
 		$data['caption'] = "Join ";
 
-//-------------------------------
-//------------------------------
-require_once 'firebase-php/firebaseLib.php';
 
-$urlFire = 'https://moke.firebaseio.com/';
-$token = 'AFpIBjmV19PRcnAZkoXLywv8iDLLDsoAp6TEmXlP';
+		//Firebase SET DATA
 
-$fb = new fireBase($urlFire, $token);
-$now = new DateTime();
+		$now = new DateTime();
 
+		$sentMoke = array(
+		  'deezerUserId' => '' . $_SESSION['deezerUserId'] .'' ,
+		  'artist' => $band,
+		  'track' => $title,
+		  'albumImage' => $url,
+		  'date' => $now->format('Y-m-d H:i:s'),
+		  'receiversFacebookIds' => $friend
+		);
 
-$sentMoke = array(
-  'deezerUserId' => '' . $_SESSION['deezerUserId'] .'' ,
-  'artist' => $band,
-  'track' => $title,
-  'albumImage' => $url,
-  'date' => $now->format('Y-m-d H:i:s'),
-  'receiversFacebookIds' => $friend
-);
+		$receivedMoke = array(
+		  'deezerUserId' => '' . $_SESSION['deezerUserId'] .'' ,
+		  'artist' => $band,
+		  'track' => $title,
+		  'albumImage' => $url,
+		  'date' => $now->format('Y-m-d H:i:s'),
+		  'senderFacebookId' => $this->user
+		);
 
+		$firebase = new firebaseData();
 
-$todoPath = '/Sent/'. $this->user . '/' . $now->format('YmdHis');
-$response = $fb->set($todoPath, $sentMoke);
-//$responseGet = $fb->get('/'. $this->user . '');
-
-
-$receivedMoke = array(
-  'deezerUserId' => '' . $_SESSION['deezerUserId'] .'' ,
-  'artist' => $band,
-  'track' => $title,
-  'albumImage' => $url,
-  'date' => $now->format('Y-m-d H:i:s'),
-  'senderFacebookId' => $this->user
-);
+		$firebase->SetMoke($this->user, $sentMoke, $friend, $receivedMoke, $now);
 
 
-$arrayFriendsReceivers = explode(',', $friend);
-
-$max = sizeof($arrayFriendsReceivers);
-
-for ($i=0; $i < $max; $i++) { 
-	
-	$receiversPath = '/Received/'. $arrayFriendsReceivers[$i] . '/' . $now->format('YmdHis');
-	$response = $fb->set($receiversPath, $receivedMoke);
-}
-
-//-------------------------
-//-------------------------
-
-
-
-
-
-
-
+		//Send Grid send email
 
 		$sendEmail = new sendEmail();
 		$sendEmail::sendEmailToFriend('ricardo@printi.com.br', 'ricardo.parro@gmail.com', "Your friend Mauricio sent you a moke", 
