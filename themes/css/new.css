@@ -336,3 +336,7 @@ label.calendar {
 	top: 12px;
 	right: 8px;
 }
+
+.my_pokes li {
+	position: relative;
+}

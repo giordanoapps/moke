@@ -214,12 +214,12 @@ if($moke->user){
                   var trackId = $(this).attr("data-track");
 
                   if($(this).hasClass("active")) {
-                    $(this).toogleClass("active");
+                    $(this).toggleClass("active");
                     DZ.player.pause();
                   }
                   else {
                     
-                    $(this).toogleClass("active");
+                    $(this).toggleClass("active");
                     DZ.init({
                       appId  : '123703',
                       channelUrl : 'http://localhost/moke/channel.html',
