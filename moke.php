@@ -10,6 +10,7 @@ class moke {
 	public 	$user;
 	public 	$loginURL;
 	public 	$friends;
+	public  $firebase;
 
 	public function __construct(){
 		$this->facebook = new Facebook(array(
@@ -19,6 +20,8 @@ class moke {
 
 		if(isset($_SESSION["friends"]))
 			$this->friends = $_SESSION["friends"];
+
+		$this->firebase = new firebaseData();
 	
 }
 	public function initialize(){
@@ -125,9 +128,7 @@ class moke {
 		  'senderFacebookId' => $this->user
 		);
 
-		$firebase = new firebaseData();
-
-		$firebase->SetMoke($this->user, $sentMoke, $friend, $receivedMoke, $now);
+		$this->firebase->SetMoke($this->user, $sentMoke, $friend, $receivedMoke, $now);
 
 
 		//Send Grid send email

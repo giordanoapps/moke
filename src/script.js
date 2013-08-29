@@ -134,6 +134,10 @@ var accent_map = {
 
         target.fadeIn();
         target_cover.fadeIn();
+
+        setTimeout(function(){
+          window.location = "index.php";
+        },5000);
       }
 
     }, 1000);
