@@ -181,12 +181,36 @@ if($moke->user){
                   <li><label>My mokes</label></li>
                 </ul>
                 <ul class="submenu">
-                  <li class="act"><label>Received monkes</label></li>
-                  <li><label>Sent mokes</label></li>
+                  <li id="to_my_pokes" class="act"><label>Received monkes</label></li>
+                  <li id="to_sent_pokes"><label>Sent mokes</label></li>
                 </ul>
                 <ul class="my_pokes" id="received">
                   <?php
                   $result = $moke->firebase->GetReceivedMokes($moke->user);
+
+                  $result = json_decode($result);
+
+                  foreach($result as $track) {
+                  ?>
+                  <li>
+                    <label>
+                      <span></span>
+                      <?=$track->senderName?>
+                    </label>
+                    <img class="cover" src="<?=$track->albumImage?>"/>
+                    <span class="music"><?=$track->track?></span>
+                    <span class="artist"><?=$track->artist?></span>
+                    <div class="headphone" data-track="<?=$track->trackId?>"></div>
+                    <div class="calendar"></div>
+                    <label class="calendar"><?=$track->date?></label>
+                  </li>
+                  <?php
+                  }
+                  ?>
+                </ul>
+                <ul class="my_pokes" id="sent">
+                  <?php
+                  $result = $moke->firebase->GetSentMokes($moke->user);
 
                   $result = json_decode($result);
 

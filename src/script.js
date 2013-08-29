@@ -1,6 +1,24 @@
 
 $(document).ready(function(){
 
+  $("#to_my_pokes").bind('click', function() {
+
+    $("#received").show();
+    $("#sent").hide();
+    $(this).addClass("act");
+    $("#to_sent_pokes").removeClass("act");
+
+  });
+
+  $("#to_sent_pokes").bind('click', function() {
+
+    $("#sent").show();
+    $("#received").hide();
+    $(this).addClass("act");
+    $("#to_my_pokes").removeClass("act");
+
+  });
+
   $("#sendMoke").bind('click', function() {
     var id, i = 0;
     $("#toMoke li input").each(function() {
