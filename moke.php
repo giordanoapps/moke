@@ -111,18 +111,41 @@ $token = 'AFpIBjmV19PRcnAZkoXLywv8iDLLDsoAp6TEmXlP';
 $fb = new fireBase($urlFire, $token);
 $now = new DateTime();
 
-$moke = array(
+
+$sentMoke = array(
   'deezerUserId' => '' . $_SESSION['deezerUserId'] .'' ,
-  'facebookId' => $this->user,
   'artist' => $band,
   'track' => $title,
   'albumImage' => $url,
-  'date' => $now->format('Y-m-d H:i:s')
+  'date' => $now->format('Y-m-d H:i:s'),
+  'receiversFacebookIds' => $friend
 );
 
-$todoPath = '/'. $this->user . '/' . $now->format('YmdHis');
-$response = $fb->set($todoPath, $moke);
-$responseGet = $fb->get('/'. $this->user . '');
+
+$todoPath = '/Sent/'. $this->user . '/' . $now->format('YmdHis');
+$response = $fb->set($todoPath, $sentMoke);
+//$responseGet = $fb->get('/'. $this->user . '');
+
+
+$receivedMoke = array(
+  'deezerUserId' => '' . $_SESSION['deezerUserId'] .'' ,
+  'artist' => $band,
+  'track' => $title,
+  'albumImage' => $url,
+  'date' => $now->format('Y-m-d H:i:s'),
+  'senderFacebookId' => $this->user
+);
+
+
+$arrayFriendsReceivers = explode(',', $friend);
+
+$max = sizeof($arrayFriendsReceivers);
+
+for ($i=0; $i < $max; $i++) { 
+	
+	$receiversPath = '/Received/'. $arrayFriendsReceivers[$i] . '/' . $now->format('YmdHis');
+	$response = $fb->set($receiversPath, $receivedMoke);
+}
 
 //-------------------------
 //-------------------------
