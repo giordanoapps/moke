@@ -4,6 +4,7 @@ session_start();
 require("moke.php");
 require("deezer.php");
 
+
 $moke = new moke();
 
 $moke->initialize();
@@ -192,30 +193,51 @@ if($moke->user){
                   foreach($result as $track) {
                   ?>
                   <li>
-                    <label><span></span><?=$track->track?></label>
+                    <label>
+                      <span></span>
+                      <?=$track->senderName?>
+                    </label>
+                    <img src="<?=$track->albumImage?>"/>
+                    <span class="music"><?=$track->track?></span>
+                    <span class="artist"><?=$track->artist?></span>
+                    <div class="headphone" data-track="<?=$track->trackId?>"></div>
+                    <div class="calendar"></div>
+                    <label class="calendar"><?=$track->date?></label>
                   </li>
                   <?php
                   }
                   ?>
-                  <li></li>
-                  <li></li>
-                  <li></li>
                 </ul>
                 <div id="dz-root"></div>
                 <script src="http://br-cdn-files.deezer.com/js/min/dz.js"></script>
                 <script>
-                  /*.... (OR)
-                   * Load a player, without displaying it. The player is hidden
-                   */
-                  DZ.init({
-                    appId  : '123703',
-                    channelUrl : 'http://localhost/moke/channel.html',
-                    player : {
-                      onload : function(){
-                        DZ.player.playTracks(['62234919']);
-                      }
+                DZ.init({
+                  appId  : '123703',
+                  channelUrl : 'http://localhost/moke/channel.html',
+                  player : {
+                    onload : function(){
                     }
-                  });
+                  }
+                });
+                $(".headphone").bind('click', function() {
+
+                  var trackId = $(this).attr("data-track");
+
+                  if($(this).hasClass("active")) {
+
+                    $(this).toggleClass("active");
+                    $(this).css("background-image","url(../../img/pause.png");
+                    DZ.player.pause();
+
+                  }
+                  else {
+                    
+                    DZ.player.playTracks([trackId])
+                    $(this).css("background-image","url(../../img/headphone.png");
+                    $(this).toggleClass("active");
+
+                  }
+                });
                 </script>
             </div>
           <?php endif ?>

@@ -1,5 +1,6 @@
 
 $(document).ready(function(){
+
   $("#sendMoke").bind('click', function() {
     var id, i = 0;
     $("#toMoke li input").each(function() {
