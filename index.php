@@ -215,10 +215,12 @@ if($moke->user){
 
                   if($(this).hasClass("active")) {
                     $(this).toggleClass("active");
+                    $(this).css("background-image","url(../../img/pause.png");
                     DZ.player.pause();
                   }
                   else {
                     
+                    $(this).css("background-image","url(../../img/headphone.png");
                     $(this).toggleClass("active");
                     DZ.init({
                       appId  : '123703',
