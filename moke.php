@@ -77,12 +77,18 @@ class moke {
 
 	}
 
-	public function sendMoke($params){
+	public function sendMoke($params, $deezer){
+
+		$size = count($deezer->favoriteTracks);
+
+		$random = mt_rand(0, $size-1);
+
+		$track = $deezer->favoriteTracks[$random];
 
 		$friend = $params["friend"];
-		$url 	= "http://www.deezer.com/track/2423901";
-		$title 	= "fasga";
-		$band 	= "fasga";
+		$url 	= $track->link;
+		$title 	= $track->title;
+		$band 	= $track->artist->name;
 
 		$data = array();
 
@@ -96,9 +102,11 @@ class moke {
 
 		$ret_obj = $this->facebook->api('/me/feed', 'POST', $data);
 
-		if($ret_obj)
-			header("Location: index.php#pokesent");
+		$params = array();
+		array_push($params, $deezer->favoriteTracks);
+		array_push($params, $random);
 
+		return $params;
 	}
 
 }

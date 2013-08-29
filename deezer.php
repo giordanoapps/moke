@@ -1,15 +1,19 @@
 <?php
-
-
 class deezer{
+
+	public $accessToken;
+	public $userId;
+	public $oAuth;
+	public $favoriteTracks;
 
 	public function __construct(){
 
 		$this->oAuth = "http://connect.deezer.com/oauth/auth.php?app_id=123703&redirect_uri=http://localhost/moke&perms=basic_access,email";
+		$this->access_token = null;
 
 	}
 
-	public function getAccesstoken($code){
+	public function initialize($code){
 		$urlAccessToken = "http://connect.deezer.com/oauth/access_token.php?app_id=123703&secret=91c511cfd4b7aa2b2067d7f8733dd7d0&code=" . $code;
 
 	    $ch = curl_init();
@@ -18,18 +22,30 @@ class deezer{
 	    curl_setopt($ch,CURLOPT_CONNECTTIMEOUT, 4);
 
 	    $response = curl_exec($ch);
-	    if(!$response) {
+
+	    if($response == "wrong code") {
 	        echo curl_error($ch);
 	    }
 	    curl_close($ch);
 	    $params    = null;
 	    parse_str($response, $params);
 
-	    return $params['access_token'];
+	    $this->accessToken = $params['access_token'];
+	    $_SESSION["deezer_access_token"] = $this->accessToken;
+
+	    $this->getContent();
 	}
 
-	public function getUserId($accessToken){
-		$urlUser = "http://api.deezer.com/2.0/user/me?access_token=" . $accessToken;
+	public function getContent(){
+		setcookie("deezer_access_token", $this->accessToken);
+     	setcookie("deezer_access_token", $this->accessToken, time() + (10 * 365 * 24 * 60 * 60));  /* expire in 1 hour */
+
+		$this->getUserId();
+		$this->getUserFavoriteTracks();
+	}
+
+	public function getUserId(){
+		$urlUser = "http://api.deezer.com/2.0/user/me?access_token=" . $this->accessToken;
 	    $chs = curl_init();
 	    curl_setopt($chs,CURLOPT_URL,$urlUser);
 	    curl_setopt($chs,CURLOPT_RETURNTRANSFER,1);
@@ -43,11 +59,12 @@ class deezer{
 	    
 
 	    $user = json_decode($responseUser, true);
-	    return $user['id'];
+	    $this->userId = $user['id'];
 	}
 
-	public function getUserFavoriteTracks($deezerUserId, $accessToken){
-		$urlPlaylist = "http://api.deezer.com/2.0/user/". $deezerUserId . "/tracks?access_token=" . $accessToken;
+	public function getUserFavoriteTracks(){
+
+		$urlPlaylist = "http://api.deezer.com/2.0/user/". $this->userId . "/tracks?access_token=" . $this->accessToken;
     	$chs = curl_init();
     	curl_setopt($chs,CURLOPT_URL,$urlPlaylist);
     	curl_setopt($chs,CURLOPT_RETURNTRANSFER,1);
@@ -60,6 +77,7 @@ class deezer{
     	curl_close($chs);
     	$dados = json_decode($responseFavorites);
     	var_dump($dados->data);   ///[0]->link;
-    	return $dados->data;
+    	$this->favoriteTracks = $dados->data;
 	}
+
 }
