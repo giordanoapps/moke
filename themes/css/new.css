@@ -322,6 +322,9 @@ div.calendar,
 	top: 51px;
 	right: 10px;
 }
+.headphone:hover {
+	cursor: pointer;
+}
 div.calendar {
 	position: absolute;
 	top: 4px;

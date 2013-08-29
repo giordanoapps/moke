@@ -211,21 +211,26 @@ if($moke->user){
                 <script src="http://br-cdn-files.deezer.com/js/min/dz.js"></script>
                 <script>
                 $(".headphone").bind('click', function() {
-                  /*.... (OR)
-                   * Load a player, without displaying it. The player is hidden
-                   */
-
                   var trackId = $(this).attr("data-track");
 
-                  DZ.init({
-                    appId  : '123703',
-                    channelUrl : 'http://localhost/moke/channel.html',
-                    player : {
-                      onload : function(){
-                        DZ.player.playTracks([trackId])
+                  if($(this).hasClass("active")) {
+                    $(this).toogleClass("active");
+                    DZ.player.pause();
+                  }
+                  else {
+                    
+                    $(this).toogleClass("active");
+                    DZ.init({
+                      appId  : '123703',
+                      channelUrl : 'http://localhost/moke/channel.html',
+                      player : {
+                        onload : function(){
+                          DZ.player.playTracks([trackId])
+                        }
                       }
-                    }
-                  });
+                    });
+
+                  }
                 });
                 </script>
             </div>
