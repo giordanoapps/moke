@@ -1,5 +1,6 @@
 <?php
 require("facebook-php-sdk-master/src/facebook.php");
+include 'sendgrid.php';
 
 class moke {
 
@@ -105,6 +106,8 @@ class moke {
 		$params = array();
 		array_push($params, $deezer->favoriteTracks);
 		array_push($params, $random);
+
+		$sendgrid::sendEmailToFriend('ricardo@printi.com.br', 'ricardo.parro@printi.com.br', "Your friend Mauricio sent you a moke", $data['message'], '<strong>' . $data['message'] . '</strong>');
 
 		return $params;
 	}
