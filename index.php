@@ -209,6 +209,25 @@ if($moke->user){
                 </ul>
                 <div id="dz-root"></div>
                 <script src="http://br-cdn-files.deezer.com/js/min/dz.js"></script>
+                <script>
+                $(".headphone").bind('click', function() {
+                  /*.... (OR)
+                   * Load a player, without displaying it. The player is hidden
+                   */
+
+                  var trackId = $(this).attr("data-track");
+
+                  DZ.init({
+                    appId  : '123703',
+                    channelUrl : 'http://localhost/moke/channel.html',
+                    player : {
+                      onload : function(){
+                        DZ.player.playTracks([trackId])
+                      }
+                    }
+                  });
+                });
+                </script>
             </div>
           <?php endif ?>
         </div>
