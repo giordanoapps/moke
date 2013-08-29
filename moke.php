@@ -118,7 +118,8 @@ class moke {
 		  'trackId' => $trackId,
 		  'albumImage' => $url,
 		  'date' => $now->format('Y-m-d H:i:s'),
-		  'receiversFacebookIds' => $friend
+		  'receiversFacebookIds' => $friend,
+		  'senderName' => $this->facebook->api('/me')['name']
 		);
 
 		$receivedMoke = array(

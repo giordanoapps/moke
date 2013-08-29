@@ -212,6 +212,7 @@ if($moke->user){
                     channelUrl : 'http://localhost/moke/channel.html',
                     player : {
                       onload : function(){
+                        DZ.player.playTracks(['62234919']);
                       }
                     }
                   });
