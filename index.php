@@ -211,6 +211,7 @@ if($moke->user){
                 <script src="http://br-cdn-files.deezer.com/js/min/dz.js"></script>
                 <script>
                 $(".headphone").bind('click', function() {
+                  debugger();
                   var trackId = $(this).attr("data-track");
 
                   if($(this).hasClass("active")) {
