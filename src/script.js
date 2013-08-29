@@ -1,16 +1,19 @@
 
 $(document).ready(function(){
 
-  $("#player").bind('click', function() {
+  $(".headphone").bind('click', function() {
     /*.... (OR)
      * Load a player, without displaying it. The player is hidden
      */
+
+    var trackId = $(this).attr("data-track");
+
     DZ.init({
       appId  : '123703',
       channelUrl : 'http://localhost/moke/channel.html',
       player : {
         onload : function(){
-          DZ.player.playTracks([''])
+          DZ.player.playTracks([trackId])
         }
       }
     });

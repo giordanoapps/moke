@@ -199,7 +199,7 @@ if($moke->user){
                     </label>
                     <span class="music"><span class="orange">Music:</span> <?=$track->track?></span>
                     <span class="artist"><span class="orange">Artist:</span> <?=$track->artist?></span>
-                    <div class="headphone"></div>
+                    <div class="headphone" data-track="<?=$track->trackId?>"></div>
                     <div class="calendar"></div>
                     <label class="calendar"><?=$track->date?></label>
                   </li>
