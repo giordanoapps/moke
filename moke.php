@@ -14,8 +14,8 @@ class moke {
 
 	public function __construct(){
 		$this->facebook = new Facebook(array(
-			'appId'  => '433999643379630',
-			'secret' => '4406fdb6377380765834ab6f7387a229',
+			'appId'  => '374371822665745',
+			'secret' => '10940da5ca458cc591c7aabab3c6cf88',
 		));
 
 		if(isset($_SESSION["friends"]))
