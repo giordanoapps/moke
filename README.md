@@ -3,9 +3,7 @@ moke
 
 The Music Poke
 
-Dependencies
-
-Modules to clone on root folder:
+Dependencies:
 
 https://github.com/ktamas77/firebase-php
 
