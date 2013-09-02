@@ -5,59 +5,28 @@ require("moke.php");
 require("deezer.php");
 
 
-$moke = new moke();
+// if($moke->user){
 
-$moke->initialize();
+//   if(isset($_GET['sendmoke'])) {
+//     $data = $moke->sendMoke($_GET,$deezer);
 
-if(isset($_GET['destroy']))
-    $moke->finalize();
+//     $tracks = $data[0];
+//     $count = count($tracks);
 
-if($moke->user) {
+//     $selected = $data[1];
 
-  $moke->requestFriends();
+//     $i = 0;
+//     foreach($tracks as $track){
+//       if($i == $selected)
+//         echo '<div style="display:none" data-i="'.$selected.'" class="random selected" data-title="'.$track->title.'" data-artist="'.$track->artist->name.'" data-cover="'.$track->album->cover.'"></div>';
+//       else
+//         echo '<div style="display:none" class="random" data-cover="'.$track->album->cover.'" data-title="'.$track->title.'" data-artist="'.$track->artist->name.'"></div>';
 
-}
-//Deezer setup 
-$deezer = new deezer();
+//       $i++;
+//     }
+//   }
 
-if(!isset($_GET["state"])) {
-
-  if(!isset($_SESSION["deezer_access_token"]) && isset($_GET["code"])){
-
-    $deezer->initialize($_GET["code"]);
-
-  }
-  elseif(isset($_SESSION["deezer_access_token"])) {
-
-    $deezer->accessToken = $_SESSION["deezer_access_token"];
-    $deezer->getContent();
-
-  }
-
-}
-
-if($moke->user){
-
-  if(isset($_GET['sendmoke'])) {
-    $data = $moke->sendMoke($_GET,$deezer);
-
-    $tracks = $data[0];
-    $count = count($tracks);
-
-    $selected = $data[1];
-
-    $i = 0;
-    foreach($tracks as $track){
-      if($i == $selected)
-        echo '<div style="display:none" data-i="'.$selected.'" class="random selected" data-title="'.$track->title.'" data-artist="'.$track->artist->name.'" data-cover="'.$track->album->cover.'"></div>';
-      else
-        echo '<div style="display:none" class="random" data-cover="'.$track->album->cover.'" data-title="'.$track->title.'" data-artist="'.$track->artist->name.'"></div>';
-
-      $i++;
-    }
-  }
-
-}
+// }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
@@ -81,6 +50,7 @@ if($moke->user){
         </style>
         <script src="src/lib/zepto.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="src/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>
+
         <script type="text/javascript" charset="utf-8">
             var jqtouch = $.jQTouch({
                 icon: 'mail.png',
@@ -88,7 +58,7 @@ if($moke->user){
                     'themes/jqt/img/chevron.png',
                     'themes/jqt/img/back_button.png',
                     'themes/jqt/img/back_button_clicked.png',
-                    'themes/jqt/img/button_clicked.png',
+                     'themes/jqt/img/button_clicked.png',
                     'themes/jqt/img/grayButton.png',
                     'themes/jqt/img/whiteButton.png'
                 ]
@@ -102,28 +72,30 @@ if($moke->user){
             });
         </script>
         <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="src/initmoke.js" type="text/javascript" charset="utf-8"></script>
     </head>
     <body>
         <div id="jqt">
-            <?php if (!$moke->user): ?>
-              <div id="home" class="edgetoedge">
+            <?php //if (!$moke->user): ?>
+              <div id="homeFacebook" class="edgetoedge">
                   <div class="header">
                   </div>
                   <ul class="homemenu login">
-                    <li><a rel="external" href="<?php echo $moke->loginURL; ?>">Login with Facebook</a></li>
+                    <li><a id="facebookLink" rel="external" href="">Login with Facebook</a></li>
                   </ul>
               </div>
-            <?php elseif ($deezer->accessToken == null): ?>
-              <div id="home" class="edgetoedge">
+            <?php //elseif ($deezer->accessToken == null): ?>
+              <div id="homeDeezer" class="edgetoedge">
                   <div class="header">
                   </div>
                   <ul class="homemenu login">
 
-                    <li><a rel="external" href="<?php echo $deezer->oAuth; ?>">Login with Deezer</a></li>
+                    <li><a rel="external" id="deezerLink" href="<?php //echo $deezer->oAuth; ?>">Login with Deezer</a></li>
                   </ul>
               </div>
-            <?php else: ?>
-              <div id="home" class="edgetoedge">
+            <?php //else: ?>
+              <div id="homeMenu" class="edgetoedge">
                     <!-- <a class="button slideup" id="infoButton" href="#about">About</a> -->
                 <div class="header">
                     <!-- <a class="button slideup" id="infoButton" href="#about">About</a> -->
@@ -181,8 +153,8 @@ if($moke->user){
                   <li><label>My mokes</label></li>
                 </ul>
                 <ul class="submenu">
-                  <li id="to_my_pokes" class="act"><label>Received monkes</label></li>
-                  <li id="to_sent_pokes"><label>Sent mokes</label></li>
+                  <li class="act"><label>Received monkes</label></li>
+                  <li><label>Sent mokes</label></li>
                 </ul>
                 <ul class="my_pokes" id="received">
                   <?php
@@ -197,31 +169,7 @@ if($moke->user){
                       <span></span>
                       <?=$track->senderName?>
                     </label>
-                    <img class="cover_2" src="<?=$track->albumImage?>"/>
-                    <span class="music"><?=$track->track?></span>
-                    <span class="artist"><?=$track->artist?></span>
-                    <div class="headphone" data-track="<?=$track->trackId?>"></div>
-                    <div class="calendar"></div>
-                    <label class="calendar"><?=$track->date?></label>
-                  </li>
-                  <?php
-                  }
-                  ?>
-                </ul>
-                <ul class="my_pokes" id="sent">
-                  <?php
-                  $result = $moke->firebase->GetSentMokes($moke->user);
-
-                  $result = json_decode($result);
-
-                  foreach($result as $track) {
-                  ?>
-                  <li>
-                    <label>
-                      <span></span>
-                      <?=$track->senderName?>
-                    </label>
-                    <img class="cover_2" src="<?=$track->albumImage?>"/>
+                    <img class="cover" src="<?=$track->albumImage?>"/>
                     <span class="music"><?=$track->track?></span>
                     <span class="artist"><?=$track->artist?></span>
                     <div class="headphone" data-track="<?=$track->trackId?>"></div>
@@ -264,7 +212,7 @@ if($moke->user){
                 });
                 </script>
             </div>
-          <?php endif ?>
+          <?php //endif ?>
         </div>
     </body>
     <script src="src/script.js" type="text/javascript" charset="utf-8"></script>
