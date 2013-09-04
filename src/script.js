@@ -20,6 +20,7 @@ $(document).ready(function(){
   });
 
   $("#sendMoke").bind('click', function() {
+
     var id, i = 0;
     $("#toMoke li input").each(function() {
       if($(this).prop('checked')) {
@@ -34,7 +35,69 @@ $(document).ready(function(){
       }
     })
 
-    window.location = "?sendmoke=true&friend="+id+"#mokesent";
+    console.log("antes_ajax");
+    $.ajax({
+      url: 'ajax/facebook.php',
+      type: 'GET',
+      dataType: 'json',
+      data: 'sendmoke=true&friend='+id,
+      success: function(data) {
+
+        $("#mokesent").addClass('current');
+
+        var target = $("#random");
+        var target_cover = $("#random_cover");
+        var selected = data.selected;
+        var i = 0;
+        var j = 0;
+        var size = deezer.tracks.length;
+        var content;
+
+        target.fadeOut();
+        target_cover.fadeOut();
+
+        var loop = setInterval(function(){
+        
+          j = Math.round(Math.random()*1000)
+          j = j % (size-1);
+
+          console.log(j);
+
+          content = deezer.tracks[j].artist.name + "<br/>" + deezer.tracks[j].title;
+          content_cover = "<img class='cover' src='"+deezer.tracks[j].album.cover+"'/>";
+
+          target.html(content);
+          target_cover.html(content_cover);
+
+          target.fadeIn(500).fadeOut(500);
+          target_cover.fadeIn(500).fadeOut(500);
+
+          i++;
+
+          if(i >= size || i >= 8){
+            clearInterval(loop);
+
+            content = "<span style='color:#e67e22'>"+deezer.tracks[selected].artist.name + "<br/>" + deezer.tracks[selected].title+"</span>";
+            content_cover = "<img class='cover' src='"+deezer.tracks[selected].album.cover+"'/>";
+            target.html(content);
+            target_cover.html(content_cover);
+
+            target.fadeIn();
+            target_cover.fadeIn();
+
+            setTimeout(function(){
+              $("#home").addClass('current');
+            },5000);
+          }
+
+        }, 1000);
+
+
+      },
+    });
+    console.log("depois_ajax");
+
+    //window.location = "?sendmoke=true&friend="+id+"#mokesent";
   })
   /*
   jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
@@ -98,6 +161,7 @@ var accent_map = {
         }
     });
   $("#filter").bind('keyup', function(e){
+    console.log(e);
     var filter = $(this).val();
 
     $("#toMoke").find("li:contains-IgnoreAccents(" + filter + ")").show();
@@ -105,61 +169,6 @@ var accent_map = {
   })
   if(window.location.href.indexOf("mokesent") > -1){
 
-    var title = new Array();
-    var artist = new Array();
-    var cover = new Array();
-    $(".random").each(function(){
-      title.push($(this).attr("data-title"));
-      artist.push($(this).attr("data-artist"));
-      cover.push($(this).attr("data-cover"));
-    });
-
-    var target = $("#random");
-    var target_cover = $("#random_cover");
-    var selected = $(".random.selected").attr("data-i");
-    var i = 0;
-    var j = 0;
-    var size = title.length;
-    var content;
-
-    target.fadeOut();
-    target_cover.fadeOut();
-
-    var loop = setInterval(function(){
-    
-      j = Math.round(Math.random()*1000)
-      j = j % (size-1);
-
-      console.log(j);
-
-      content = artist[j] + "<br/>" + title[j];
-      content_cover = "<img class='cover' src='"+cover[j]+"'/>";
-
-      target.html(content);
-      target_cover.html(content_cover);
-
-      target.fadeIn(500).fadeOut(500);
-      target_cover.fadeIn(500).fadeOut(500);
-
-      i++;
-
-      if(i >= size || i >= 8){
-        clearInterval(loop);
-
-        content = "<span style='color:#e67e22'>"+artist[selected] + "<br/>" + title[selected]+"</span>";
-        content_cover = "<img class='cover' src='"+cover[selected]+"'/>";
-        target.html(content);
-        target_cover.html(content_cover);
-
-        target.fadeIn();
-        target_cover.fadeIn();
-
-        setTimeout(function(){
-          window.location = "index.php";
-        },5000);
-      }
-
-    }, 1000);
 
   }
 })

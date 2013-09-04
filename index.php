@@ -4,7 +4,8 @@ session_start();
 require("moke.php");
 require("deezer.php");
 
-
+var_dump($_GET);
+var_dump($_POST);
 // if($moke->user){
 
 //   if(isset($_GET['sendmoke'])) {
@@ -73,10 +74,18 @@ require("deezer.php");
         </script>
         <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
 
-        <script src="src/initmoke.js" type="text/javascript" charset="utf-8"></script>
+        <script src="src/initmoke_2.js" type="text/javascript" charset="utf-8"></script>
+        <script src="src/script.js" type="text/javascript" charset="utf-8"></script>
     </head>
     <body>
         <div id="jqt">
+              <div id="loading" class="edgetoedge">
+                  <div class="header">
+                  </div>
+                  <ul class="homemenu login">
+                    <li><a id="" rel="external" href="">Loading...</a></li>
+                  </ul>
+              </div>
             <?php //if (!$moke->user): ?>
               <div id="homeFacebook" class="edgetoedge">
                   <div class="header">
@@ -95,7 +104,7 @@ require("deezer.php");
                   </ul>
               </div>
             <?php //else: ?>
-              <div id="homeMenu" class="edgetoedge">
+              <div id="home" class="edgetoedge">
                     <!-- <a class="button slideup" id="infoButton" href="#about">About</a> -->
                 <div class="header">
                     <!-- <a class="button slideup" id="infoButton" href="#about">About</a> -->
@@ -125,17 +134,12 @@ require("deezer.php");
                 </div>
                 <ul class="filter">
                   <a href="#home"><div class="bc bt"></div></a>
-                  <li><input id="filter" type="text" name="search" placeholder="Choose your friends"/></li>
+                  <li>
+                    <input id="filter" type="text" name="search" placeholder="Choose your friends"/>
+                  </li>
                   <a id="sendMoke" href="#"><div class="sd bt"></div></a>
                 </ul>
                 <ul id="toMoke" class="search">
-                  <?php
-                  $i = 0;
-                  foreach($moke->friends as $friend) {
-                    echo '<li><input type="checkbox" id="c'.$i.'" name="'.@$friend["id"].'"/><label for="c'.$i.'"><span></span>'.@$friend["name"].'</label></li>';
-                    $i++;
-                  }
-                  ?>
                 </ul>
             </div>
             <div id="mokesent">
@@ -153,32 +157,12 @@ require("deezer.php");
                   <li><label>My mokes</label></li>
                 </ul>
                 <ul class="submenu">
-                  <li class="act"><label>Received monkes</label></li>
-                  <li><label>Sent mokes</label></li>
+                  <li id="to_my_pokes" class="act"><label>Received monkes</label></li>
+                  <li id="to_sent_pokes"><label>Sent mokes</label></li>
                 </ul>
                 <ul class="my_pokes" id="received">
-                  <?php
-                  $result = $moke->firebase->GetReceivedMokes($moke->user);
-
-                  $result = json_decode($result);
-
-                  foreach($result as $track) {
-                  ?>
-                  <li>
-                    <label>
-                      <span></span>
-                      <?=$track->senderName?>
-                    </label>
-                    <img class="cover" src="<?=$track->albumImage?>"/>
-                    <span class="music"><?=$track->track?></span>
-                    <span class="artist"><?=$track->artist?></span>
-                    <div class="headphone" data-track="<?=$track->trackId?>"></div>
-                    <div class="calendar"></div>
-                    <label class="calendar"><?=$track->date?></label>
-                  </li>
-                  <?php
-                  }
-                  ?>
+                </ul>
+                <ul class="my_pokes" id="sent">
                 </ul>
                 <div id="dz-root"></div>
                 <script src="http://br-cdn-files.deezer.com/js/min/dz.js"></script>
@@ -215,5 +199,4 @@ require("deezer.php");
           <?php //endif ?>
         </div>
     </body>
-    <script src="src/script.js" type="text/javascript" charset="utf-8"></script>
 </html>
