@@ -1,7 +1,7 @@
 <?php
-
 session_start();
-require("../deezer.php");
+
+require("../classes/deezer.php");
 
 if(isset($_GET["url"])) {
 	$_SESSION["deezerReturnURL"] = $_GET["url"];

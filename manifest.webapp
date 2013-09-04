@@ -4,9 +4,9 @@
   "description": "Moke the Music Poke",
   "launch_path": "/index.html",
   "icons": {
-    "16": "/icon.png",
-    "48": "/icon.png",
-    "128": "/icon_128.png"
+    "16": "/img/icon.png",
+    "48": "/img/icon.png",
+    "128": "/img/icon_128.png"
   },
   "developer": {
     "name": "Moke",

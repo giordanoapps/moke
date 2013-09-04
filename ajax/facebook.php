@@ -1,8 +1,8 @@
 <?php
-
 session_start();
-require("../moke.php");
-require("../deezer.php");
+
+require("../classes/moke.php");
+require("../classes/deezer.php");
 
 if(isset($_GET["url"])) {
 	$_SESSION["facebookReturnURL"] = $_GET["url"];
