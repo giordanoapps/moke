@@ -11,11 +11,12 @@ class moke {
 	public 	$loginURL;
 	public 	$friends;
 	public  $firebase;
-
-	public function __construct(){
+	public function __construct($appId, $secret){
+		
+		
 		$this->facebook = new Facebook(array(
-			'appId'  => '144884582388415',
-			'secret' => 'a5b72155e7c299e58b864717f3dc6bc2',
+			'appId'  => $appId,
+			'secret' => $secret,
 		));
 
 		if(isset($_SESSION["friends"]))

@@ -2,12 +2,13 @@
 session_start();
 
 require("../classes/deezer.php");
+require("../config.php"); 
 
 if(isset($_GET["url"])) {
 	$_SESSION["deezerReturnURL"] = $_GET["url"];
 }
 
-$deezer = new deezer();
+$deezer = new deezer($CONFIG["APIS"]["deezer"]['appId'], $CONFIG["APIS"]["deezer"]['secret']);
 
 $ajaxReturn = new stdClass();
 

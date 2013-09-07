@@ -3,12 +3,14 @@ session_start();
 
 require("../classes/moke.php");
 require("../classes/deezer.php");
+require("../config.php"); 
+
 
 if(isset($_GET["url"])) {
 	$_SESSION["facebookReturnURL"] = $_GET["url"];
 }
 
-$moke = new moke();
+$moke = new moke($CONFIG['APIS']['facebook']['appId'],  $CONFIG['APIS']['facebook']['secret']);
 
 $moke->initialize();
 

@@ -1,21 +1,28 @@
 <?php
 
+// load up your config file  
+ require_once("config.php"); 
+
 class deezer{
 
 	public $accessToken;
 	public $userId;
 	public $oAuth;
 	public $favoriteTracks;
+	private $appId;
+	private $secret;
 
-	public function __construct(){
+	public function __construct($deezerAppId,$deezerSecret){
 
-		$this->oAuth = "http://connect.deezer.com/oauth/auth.php?app_id=124127&redirect_uri=".urlencode("http://localhost/moke/ajax/deezer.php")."&perms=basic_access,email";
+		$this->appId = $deezerAppId;
+		$this->secret = $deezerSecret;
+		$this->oAuth = "http://connect.deezer.com/oauth/auth.php?app_id=" + $deezerSecret + "&redirect_uri=".urlencode("http://localhost/moke/ajax/deezer.php")."&perms=basic_access,email";
 		$this->access_token = null;
 
 	}
 
 	public function initialize($code){
-		$urlAccessToken = "http://connect.deezer.com/oauth/access_token.php?app_id=124127&secret=35bbc77e35e79c81282ef5bfec4839c3&code=" . $code;
+		$urlAccessToken = "http://connect.deezer.com/oauth/access_token.php?app_id=" + $appId + "&secret=" + $secret + "&code=" . $code;
 
 	    $ch = curl_init();
 	    curl_setopt($ch,CURLOPT_URL,$urlAccessToken);
