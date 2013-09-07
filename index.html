@@ -18,6 +18,7 @@
                 font-size: 14px;
             }
         </style>
+        <script type='text/javascript' src='https://cdn.firebase.com/v0/firebase-simple-login.js'></script>
         <script src="js/src/lib/zepto.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="js/src/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>
 
@@ -81,7 +82,7 @@
                     </li>
                     <li>
                       <span class="sound left"></span>
-                      <a href="#mymokes">My mokes</a>
+                      <a href="#mymokes" onclick="GetMokes('received');">My mokes</a>
                       <span class="sound right"></span>
                     </li>
                     <li>
@@ -121,8 +122,8 @@
                   <li><label>My mokes</label></li>
                 </ul>
                 <ul class="submenu">
-                  <li id="to_my_pokes" class="act"><label>Received monkes</label></li>
-                  <li id="to_sent_pokes"><label>Sent mokes</label></li>
+                  <li id="to_my_pokes" class="act"><label>Received mokes</label></li>
+                  <li id="to_sent_pokes" onclick="GetMokes('sent');"><label>Sent mokes</label></li>
                 </ul>
                 <ul class="my_pokes" id="received">
                 </ul>

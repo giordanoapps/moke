@@ -61,7 +61,6 @@ $(document).ready(function(){
         }
 
         $("#toMoke").html(content);
-
       }
       else
       {
@@ -70,4 +69,39 @@ $(document).ready(function(){
       }
     },
   });
-})
+});
+
+function GetMokes(method){
+  $.ajax({
+    url: 'ajax/ajax_firebase.php',
+    type: 'GET',
+    dataType: 'json',
+    data:'method=' + method,
+    beforeSend: function() {
+
+      $('#loading').addClass('current');
+
+    },
+    success: function(data) {
+      
+      var html ='';
+      $.each(data, function(key,value){
+
+        console.log('key : ' + key + ' value : ' + value['artist']);
+
+        html += '<li><label><span></span>' + value['senderName'] + '</label>' +
+                 '<img class="cover_2" src="' + value['albumImage'] +'">'+
+                 '<span class="music">' + value['track'] +'</span>' +
+                  '<span class="artist">' + value['artist'] + '</span>'+
+                  '<div class="headphone" data-track="'+value['trackId'] + '"></div>'+
+                   '<div class="calendar"></div>' +
+                    '<label class="calendar">' + value['date'] + '</label>'+
+                  '</li>';
+
+      });
+      $('#' + method).html(html);
+    }
+
+
+});
+}

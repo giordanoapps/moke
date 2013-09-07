@@ -2,7 +2,6 @@
 $(document).ready(function(){
 
   $("#to_my_pokes").bind('click', function() {
-
     $("#received").show();
     $("#sent").hide();
     $(this).addClass("act");
@@ -20,7 +19,6 @@ $(document).ready(function(){
   });
 
   $("#sendMoke").bind('click', function() {
-
     var id, i = 0;
     $("#toMoke li input").each(function() {
       if($(this).prop('checked')) {
@@ -33,7 +31,7 @@ $(document).ready(function(){
           id += ","+$(this).attr("name");
 
       }
-    })
+    });
 
     console.log("antes_ajax");
     $.ajax({
@@ -176,4 +174,4 @@ var accent_map = {
 
 
   }
-})
+});

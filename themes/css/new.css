@@ -184,22 +184,24 @@ input[type="checkbox"]:checked + label span {
 	display: inline-block;
 }
 .bc.bt {
-	background-image: url("../../img/back.png") !important;
+	
 	width: 32px !important;
 	height: 32px;
 	position: absolute;
 	top: 4px;
 	left: 4px;
 	z-index: 3;
+	background-image: url("../../img/back.png") !important;
 }
 .sd.bt {
-	background-image: url("../../img/send.png") !important;
+	
 	width: 32px !important;
 	height: 32px;
 	position: absolute;
 	top: 4px;
 	right: 4px;
 	z-index: 3;
+	background-image: url("../../img/send.png") !important;
 }
 #mokesent {
 	background-color: #282828 !important;

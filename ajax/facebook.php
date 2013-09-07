@@ -53,6 +53,7 @@ if($moke->user) {
 
 	$ajaxReturn->receivedMokes = $received;
 	$ajaxReturn->sentMokes = $sent;
+	$ajaxReturn->facebookUser = $moke->user;
 
 	$moke->requestFriends();
 
@@ -60,7 +61,8 @@ if($moke->user) {
 }
 else {
 	$ajaxReturn->auth = false;
-	$ajaxReturn->loginURL = $moke->loginURL;
+	$ajaxReturn->loginURL = $moke->loginURL; 
+	$_SESSION['facebookUser'] = $moke->user;
 }
 
 if(isset($_GET["code"]) && isset($_GET["state"]))

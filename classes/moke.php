@@ -14,8 +14,8 @@ class moke {
 
 	public function __construct(){
 		$this->facebook = new Facebook(array(
-			'appId'  => '374371822665745',
-			'secret' => '10940da5ca458cc591c7aabab3c6cf88',
+			'appId'  => '144884582388415',
+			'secret' => 'a5b72155e7c299e58b864717f3dc6bc2',
 		));
 
 		if(isset($_SESSION["friends"]))
@@ -39,7 +39,7 @@ class moke {
 		else {
 			$this->loginURL = $this->facebook->getLoginUrl(array('scope' => 'email, publish_stream'));
 		}
-
+		$_SESSION['facebookUser'] = $this->user;
 	}
 
 	public function finalize(){
