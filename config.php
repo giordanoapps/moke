@@ -11,6 +11,10 @@ if( ENVIRONMENT == 'dev'){
 	$CONFIG["APIS"]["deezer"] = array();
 	$CONFIG["APIS"]["deezer"]['appId'] = "124127";
 	$CONFIG["APIS"]["deezer"]['secret'] = "35bbc77e35e79c81282ef5bfec4839c3";
+	$CONFIG["APIS"]["firebase"] = array();
+	$CONFIG["APIS"]["firebase"]["url"] = "https://devmoke.firebaseio.com/";
+	$CONFIG["APIS"]["firebase"]["token"] = "wc6NZPxHi9Of5GzZyowttCy8XQfl2D9Aepm2GXBb";
+	
 }
 
 if( ENVIRONMENT == 'live'){
@@ -22,4 +26,8 @@ if( ENVIRONMENT == 'live'){
 	$CONFIG["APIS"]["deezer"] = array();
 	$CONFIG["APIS"]["deezer"]['appId'] = "123703";
 	$CONFIG["APIS"]["deezer"]['secret'] = "91c511cfd4b7aa2b2067d7f8733dd7d0";
+	$CONFIG["APIS"]["firebase"] = array();
+	$CONFIG["APIS"]["firebase"]["url"] = "https://moke.firebaseio.com/";
+	$CONFIG["APIS"]["firebase"]["token"] = "AFpIBjmV19PRcnAZkoXLywv8iDLLDsoAp6TEmXlP";
+
 }

@@ -1,8 +1,9 @@
 <?php
 session_start();
 require("../classes/firebase.php");
+require("../config.php"); 
 
-$firebase = new firebaseData();
+$firebase = new firebaseData($CONFIG["APIS"]["firebase"]["url"], $CONFIG["APIS"]["firebase"]["token"]);
 
 $method = $_GET['method'];
 $facebookId = $_SESSION['facebookUser'];

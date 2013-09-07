@@ -2,7 +2,7 @@
 session_start();
 
 require("../classes/deezer.php");
-require("../config.php"); 
+require_once("../config.php"); 
 
 if(isset($_GET["url"])) {
 	$_SESSION["deezerReturnURL"] = $_GET["url"];

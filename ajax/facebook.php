@@ -3,14 +3,14 @@ session_start();
 
 require("../classes/moke.php");
 require("../classes/deezer.php");
-require("../config.php"); 
+require_once("../config.php"); 
 
 
 if(isset($_GET["url"])) {
 	$_SESSION["facebookReturnURL"] = $_GET["url"];
 }
 
-$moke = new moke($CONFIG['APIS']['facebook']['appId'],  $CONFIG['APIS']['facebook']['secret']);
+$moke = new moke($CONFIG['APIS']['facebook']['appId'],  $CONFIG['APIS']['facebook']['secret'], $CONFIG["APIS"]["firebase"]["url"], $CONFIG["APIS"]["firebase"]["token"]);
 
 $moke->initialize();
 
@@ -21,7 +21,7 @@ if($moke->user) {
 
 	if(isset($_GET['sendmoke'])) {
 
-		$deezer = new deezer();
+		$deezer = new deezer($CONFIG["APIS"]["deezer"]['appId'],$CONFIG["APIS"]["deezer"]['secret']);
 		
 		if(!isset($_SESSION["deezer_access_token"]) && isset($_GET["code"])){
 			$deezer->initialize($_GET["code"]);

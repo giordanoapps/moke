@@ -5,10 +5,10 @@ class firebaseData{
 
 	private $fb;
 
-	public function __construct(){
+	public function __construct($url, $token){
 
-		$urlFire = 'https://moke.firebaseio.com/';
-		$token = 'AFpIBjmV19PRcnAZkoXLywv8iDLLDsoAp6TEmXlP';
+		$urlFire = $url;
+		$token = $token;
 
 		$this->fb = new fireBase($urlFire, $token);
 			

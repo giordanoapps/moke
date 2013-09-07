@@ -11,7 +11,7 @@ class moke {
 	public 	$loginURL;
 	public 	$friends;
 	public  $firebase;
-	public function __construct($appId, $secret){
+	public function __construct($appId, $secret, $firebaseUrl, $firebaseToken){
 		
 		
 		$this->facebook = new Facebook(array(
@@ -22,7 +22,7 @@ class moke {
 		if(isset($_SESSION["friends"]))
 			$this->friends = $_SESSION["friends"];
 
-		$this->firebase = new firebaseData();
+		$this->firebase = new firebaseData($firebaseUrl, $firebaseToken);
 	
 }
 	public function initialize(){
