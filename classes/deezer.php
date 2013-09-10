@@ -16,13 +16,13 @@ class deezer{
 
 		$this->appId = $deezerAppId;
 		$this->secret = $deezerSecret;
-		$this->oAuth = "http://connect.deezer.com/oauth/auth.php?app_id=" + $deezerSecret + "&redirect_uri=".urlencode("http://localhost/moke/ajax/deezer.php")."&perms=basic_access,email";
+		$this->oAuth = "http://connect.deezer.com/oauth/auth.php?app_id=" . $deezerAppId . "&redirect_uri=".urlencode("http://localhost/moke/ajax/deezer.php")."&perms=basic_access,email";
 		$this->access_token = null;
 
 	}
 
 	public function initialize($code){
-		$urlAccessToken = "http://connect.deezer.com/oauth/access_token.php?app_id=" + $appId + "&secret=" + $secret + "&code=" . $code;
+		$urlAccessToken = "http://connect.deezer.com/oauth/access_token.php?app_id=" . $this->appId . "&secret=" . $this->secret . "&code=" . $code;
 
 	    $ch = curl_init();
 	    curl_setopt($ch,CURLOPT_URL,$urlAccessToken);
