@@ -15,8 +15,8 @@ html, body {
 }
 
 .cover {
-	width: 200px;
-	height: 200px;
+	width: 270px;
+	height: 270px;
 }
 
 .header {
@@ -352,4 +352,8 @@ label.calendar {
 }
 #sent {
 	display: none;
+}
+.u_voltar {
+	color: #fff;
+	background-color: #e67e22;
 }

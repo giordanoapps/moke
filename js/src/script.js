@@ -80,17 +80,23 @@ $(document).ready(function(){
           if(i >= size || i >= 8){
             clearInterval(loop);
 
-            content = "<span style='color:#e67e22'>"+deezer.tracks[selected].artist.name + "<br/>" + deezer.tracks[selected].title+"</span>";
+            content = '<div class="headphone" style="top:15px !important" data-track="'+deezer.tracks[selected].id + '"></div>';
+            content += "<span style='color:#e67e22'>"+deezer.tracks[selected].artist.name + "<br/>" + deezer.tracks[selected].title+"</span>";
             content_cover = "<img class='cover' src='"+deezer.tracks[selected].album.cover+"'/>";
             target.html(content);
             target_cover.html(content_cover);
 
             target.fadeIn();
             target_cover.fadeIn();
+            headphone();
 
             setTimeout(function(){
-              $("#home").addClass('current');
-            },5000);
+              //$("#home").addClass('current');
+
+              var html = '<li><a class="u_voltar" href="#home">Voltar</a></li>';
+              $('#random_final').append(html);
+              
+            },500);
           }
 
         }, 1000);
