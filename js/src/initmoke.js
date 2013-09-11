@@ -100,6 +100,7 @@ function GetMokes(method){
 
       });
       $('#' + method).html(html);
+      headphone();
     }
 
 

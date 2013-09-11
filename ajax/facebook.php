@@ -10,9 +10,14 @@ if(isset($_GET["url"])) {
 	$_SESSION["facebookReturnURL"] = $_GET["url"];
 }
 
-$moke = new moke($CONFIG['APIS']['facebook']['appId'],  $CONFIG['APIS']['facebook']['secret'], $CONFIG["APIS"]["firebase"]["url"], $CONFIG["APIS"]["firebase"]["token"]);
+if(isset($_SESSION["moke"])) {
+	$moke = unserialize($_SESSION["moke"]);
+}
+else {
+	$moke = new moke($CONFIG['APIS']['facebook']['appId'],  $CONFIG['APIS']['facebook']['secret'], $CONFIG["APIS"]["firebase"]["url"], $CONFIG["APIS"]["firebase"]["token"]);
 
-$moke->initialize();
+	$moke->initialize();
+}
 
 $ajaxReturn = new stdClass();
 
@@ -59,11 +64,13 @@ if($moke->user) {
 
 	$moke->requestFriends();
 
+	$_SESSION["moke"] = serialize($moke);
+
 	$ajaxReturn->friends = $moke->friends;
 }
 else {
 	$ajaxReturn->auth = false;
-	$ajaxReturn->loginURL = $moke->loginURL; 
+	$ajaxReturn->loginURL = $moke->loginURL;
 	$_SESSION['facebookUser'] = $moke->user;
 }
 

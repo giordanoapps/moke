@@ -13,18 +13,15 @@ class moke {
 	public  $firebase;
 	public function __construct($appId, $secret, $firebaseUrl, $firebaseToken){
 		
-		
 		$this->facebook = new Facebook(array(
 			'appId'  => $appId,
 			'secret' => $secret,
 		));
 
-		if(isset($_SESSION["friends"]))
-			$this->friends = $_SESSION["friends"];
-
 		$this->firebase = new firebaseData($firebaseUrl, $firebaseToken);
 	
-}
+	}
+
 	public function initialize(){
 
 		$this->user = $this->facebook->getUser();
@@ -41,6 +38,7 @@ class moke {
 			$this->loginURL = $this->facebook->getLoginUrl(array('scope' => 'email, publish_stream'));
 		}
 		$_SESSION['facebookUser'] = $this->user;
+
 	}
 
 	public function finalize(){
@@ -77,8 +75,7 @@ class moke {
 
 				}
 			}
-
-			$_SESSION["friends"] = $this->friends;
+			
 		}
 
 	}

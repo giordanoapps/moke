@@ -8,19 +8,34 @@ if(isset($_GET["url"])) {
 	$_SESSION["deezerReturnURL"] = $_GET["url"];
 }
 
-$deezer = new deezer($CONFIG["APIS"]["deezer"]['appId'], $CONFIG["APIS"]["deezer"]['secret']);
+if(isset($_SESSION["deezer"])) {
+	$deezer = unserialize($_SESSION["deezer"]);
+}
+else {
+	$deezer = new deezer($CONFIG["APIS"]["deezer"]['appId'], $CONFIG["APIS"]["deezer"]['secret']);
+}
 
 $ajaxReturn = new stdClass();
 
 if(!isset($_SESSION["deezer_access_token"]) && isset($_GET["code"])){
-	$deezer->initialize($_GET["code"]);
+
+	if(!isset($_SESSION["deezer"])){
+		$deezer->initialize($_GET["code"]);
+
+		$_SESSION["deezer"] = serialize($deezer);
+	}
 
 	$ajaxReturn->auth = true;
 	$ajaxReturn->tracks = $deezer->favoriteTracks;
 }
 elseif(isset($_SESSION["deezer_access_token"])) {
-	$deezer->accessToken = $_SESSION["deezer_access_token"];
-	$deezer->getContent();
+
+	if(!isset($_SESSION["deezer"])){
+		$deezer->accessToken = $_SESSION["deezer_access_token"];
+		$deezer->getContent();
+
+		$_SESSION["deezer"] = serialize($deezer);
+	}
 
 	$ajaxReturn->auth = true;
 	$ajaxReturn->tracks = $deezer->favoriteTracks;

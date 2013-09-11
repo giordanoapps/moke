@@ -304,6 +304,7 @@ input[type="checkbox"]:checked + label span {
 	margin-top: 10px;
 	margin-left: 65px;
 	font-size: 15px;
+	max-width: 190px;
 }
 
 .orange {

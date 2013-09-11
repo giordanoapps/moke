@@ -1,7 +1,6 @@
 <?php
-
 // load up your config file  
- require_once("config.php"); 
+require_once("../config.php"); 
 
 class deezer{
 
