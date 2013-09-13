@@ -30,15 +30,15 @@ if($moke->user) {
 		
 		if(!isset($_SESSION["deezer_access_token"]) && isset($_GET["code"])){
 			$deezer->initialize($_GET["code"]);
-			$ajaxReturn->teste = true;
+			//$ajaxReturn->teste = true;
 		}
 		elseif(isset($_SESSION["deezer_access_token"])) {
 			$deezer->accessToken = $_SESSION["deezer_access_token"];
 			$deezer->getContent();
-			$ajaxReturn->teste = true;
+			//$ajaxReturn->teste = true;
 		}
 		else {
-			$ajaxReturn->teste = false;
+			//$ajaxReturn->teste = false;
 		}
 
 		$data = $moke->sendMoke($_GET,$deezer);
@@ -50,6 +50,10 @@ if($moke->user) {
 		$selected = $data[1];
 
 		$ajaxReturn->selected = $selected;
+
+		echo json_encode($ajaxReturn);
+
+		die();
 	}
 
 	$received = $moke->firebase->GetReceivedMokes($moke->user);
