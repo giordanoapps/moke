@@ -164,3 +164,14 @@ iframe {
 	display: inline;
 	left: -84px;
 }
+#received-mokes .on-right,
+#sent-mokes .on-right,
+#loading-moke .on-right {
+	font-size: 30px;
+}
+section.show > [data-control="pull"] {
+	top: 82px;
+}
+section.show > [data-control="pull"] > strong {
+	margin-left: -20px;
+}
