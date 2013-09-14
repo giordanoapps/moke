@@ -45,7 +45,6 @@ class moke {
 
 		$this->facebook->destroySession();
 		session_destroy();
-		header("Location: index.php");
 
 	}
 
@@ -105,6 +104,11 @@ class moke {
 		$data['description'] = $title.' - '.$band;
 		$data['caption'] = "Join ";
 
+		$ret_obj = $this->facebook->api('/me/feed', 'POST', $data);
+
+		if(!$ret_obj)
+			return false;
+
 		$me = $this->facebook->api('/me');
 		$name = $me['name'];
 
@@ -143,8 +147,6 @@ class moke {
 		$sendEmail::sendEmailToFriend('ricardo@printi.com.br', 'ricardo.parro@gmail.com', "Your friend Mauricio sent you a moke", 
 		'<span>' . "Your friend Mauricio sent you a moke</span><br /><br /><span>", $data['message'] . ' ====> ' . $band  . ' - ' . $title 
 			. ' : ' . $url . '</span><br /><br /><img style="width:200px" src="'. $track->album->cover.'" />');	
-
-		$ret_obj = $this->facebook->api('/me/feed', 'POST', $data);
 
 		$params = array();
 		array_push($params, $deezer->favoriteTracks);

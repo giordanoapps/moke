@@ -35,7 +35,7 @@ $(document).ready(function(){
 
     console.log("antes_ajax");
     $.ajax({
-      url: 'ajax/facebook.php',
+      url: 'http://moke.herokuapp.com/ajax/facebook.php',
       type: 'GET',
       dataType: 'json',
       beforeSend: function() {

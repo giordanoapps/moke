@@ -4,10 +4,10 @@ var deezer;
 $(document).ready(function(){
 
   $.ajax({
-    url: 'ajax/facebook.php',
+    url: 'http://moke.herokuapp.com/ajax/facebook.php',
     type: 'GET',
     dataType: 'json',
-    data: 'url=http://localhost/moke/index.html',
+    data: 'url=http://moke.herokuapp.com/index.html',
     beforeSend: function() {
 
       $('#loading').addClass('current');
@@ -23,10 +23,10 @@ $(document).ready(function(){
       {
 
         $.ajax({
-          url: 'ajax/deezer.php',
+          url: 'http://moke.herokuapp.com/ajax/deezer.php',
           type: 'GET',
           dataType: 'json',
-          data: 'url=http://localhost/moke/index.html',
+          data: 'url=http://moke.herokuapp.com/index.html',
           success: function(data) {
 
             deezer = data;
@@ -73,7 +73,7 @@ $(document).ready(function(){
 
 function GetMokes(method){
   $.ajax({
-    url: 'ajax/ajax_firebase.php',
+    url: 'http://moke.herokuapp.com/ajax/ajax_firebase.php',
     type: 'GET',
     dataType: 'json',
     data:'method=' + method,
