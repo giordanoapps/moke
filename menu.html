@@ -1,0 +1,48 @@
+<aside id="menu" data-transition="left">
+    <header data-title="Menu">
+        <nav class="on-right">
+            <a href="#" class="buttons" data-icon="settings"></a>
+        </nav>
+    </header>
+
+    <article id="loading-menu" class="list scroll active">
+        <ul>
+            <!-- Basic Layout -->
+            <li data-view-article="refresh" data-icon="refresh">
+                <strong>Loading...</strong>
+            </li>
+        </ul>
+    </article>
+
+    <article id="main-menu" class="list scroll">
+        <ul>
+            <!-- Basic Layout -->
+            <li data-view-article="refresh" data-icon="refresh">
+                <strong>Refresh</strong>
+            </li>
+
+            <!-- Basic Layout -->
+            <li data-view-article="login-article" data-icon="home">
+                <strong>Home</strong>
+            </li>
+
+            <!-- Layout & Navigation -->
+            <li data-view-section="layout" data-async="send_moke.html" data-icon="share-alt">
+                <div class="tag on-right">5</div>
+                <strong>Send a Moke</strong>
+            </li>
+
+            <!-- List -->
+            <li data-view-article="list" data-async="static/articles/list.html" data-icon="list">
+                <div class="tag on-right">22</div>
+                <strong>Moke list</strong>
+            </li>
+
+            <!-- Forms -->
+            <li data-view-section="form" data-icon="signout">
+                <div class="tag on-right">8</div>
+                <strong>Logout</strong>
+            </li>
+        </ul>
+    </article>
+</aside>

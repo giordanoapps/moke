@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Moke - v0.1</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="cleartype" content="on">
+
+    <link rel="stylesheet" href="assets/lungojs/lungo.css">
+    <link rel="stylesheet" href="assets/lungojs/lungo.theme.css">
+    <link rel="stylesheet" href="assets/lungojs/lungo.icon.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <section id="main" data-transition="slide" data-aside="menu" class="drag">
+        <header data-title="Moke">
+            <nav>
+                <a href="#" data-view-aside="menu" data-icon="menu"></a>
+            </nav>
+            <nav class="on-right">
+                <a href="#"><abbr class="text tiny ">v0.1</abbr></a>
+            </nav>
+        </header>
+
+        <article id="login-fb-article" class="list indenteds">
+        	<ul>
+        		<li>
+        			<a href="#" class="button theme" data-label="Login with Facebook"></a>
+        		</li>
+        	</ul>
+        </article>
+
+        <article id="login-deezer-article" class="list indenteds">
+        	<ul>
+        		<li>
+        			<a href="#" class="button theme" data-label="Login with Deezer"></a>
+        		</li>
+        	</ul>
+        </article>
+
+        <article id="main-article" class="list indenteds">
+        	<ul>
+                <li class="text small">
+					Swipe right to open the <b>menu</b> or just simply click on the menu icon.
+                </li>
+            </ul>
+        </article>
+
+        <article id="error-article" class="list indenteds">
+            <div class="empty">
+                <span class="icon warning-sign"></span>
+                <strong>Connection error</strong>
+                <p>Please verify if you have a solid internet connection.</p>
+                <br/>
+                <strong>Tap to retry</strong>
+            </div>
+        </article>
+
+		<article id="loading-article" class="list indenteds">
+        	<ul class="loading-content">
+        		<li class="align-center">
+        			<img src="assets/img/loading.gif"/>
+        			<span class="loading-text">Loading</span>
+        		</li>
+        	</ul>
+        </article>
+    </section>
+
+    <section id="send-moke-section" data-transition="slide">
+	    <header data-title="Send Moke" data-back="chevron-left">
+            <nav class="on-right">
+                <button id="send-moke" data-view-section="sent-moke-section" data-icon="share-alt"></button>
+            </nav>
+	    </header>
+
+	    <article id="choose-friends" class="indented list scroll">
+            <div class="form">
+                <fieldset class="radius-top">
+                    <input type="text" id="filter" class="text align_center" placeholder="Filter friends">
+                </fieldset>
+            </div>
+	        <ul id="fb-friends">
+	        </ul>
+	    </article>
+	</section>
+
+    <section id="moke-list-section" data-transition="slide" data-pull="normal">
+        <header data-title="Moke List" data-back="chevron-left">
+        </header>
+
+        <nav data-control="groupbar">
+            <a href="#" data-view-article="received-mokes" data-label="Received Mokes" class="active"></a>
+            <a href="#" data-view-article="sent-mokes" data-label="Mokes Sent"></a>
+        </nav>
+
+        <article id="received-mokes" class="indented list scroll">
+            <ul>
+            </ul>
+        </article>
+        <article id="sent-mokes" class="indented list scroll">
+            <ul>
+            </ul>
+        </article>
+
+        <article id="error-article" class="list indenteds">
+            <div class="empty">
+                <span class="icon warning-sign"></span>
+                <strong>Connection error</strong>
+                <p>Please verify if you have a solid internet connection.</p>
+                <br/>
+                <strong>Tap to retry</strong>
+            </div>
+        </article>
+
+        <footer>
+            <nav>
+                <a id="received-mokes-bar" href="#" data-view-article="received-mokes" data-icon="reply" class="active"></a>
+                <a id="sent-mokes-bar" href="#" data-view-article="sent-mokes" data-icon="share-alt"></a>
+            </nav>
+        </footer>
+    </section>
+
+    <section id="sent-moke-section" data-transition="slide">
+        <header data-title="Send Moke">
+            <nav class="on-left">
+                <button id="main-section" data-view-section="main" data-icon="chevron-left"></button>
+            </nav>
+        </header>
+
+        <article id="error-article" class="list indenteds">
+            <div class="empty">
+                <span class="icon warning-sign"></span>
+                <strong>Connection error</strong>
+                <p>Please verify if you have a solid internet connection.</p>
+                <br/>
+                <strong>Tap to retry</strong>
+            </div>
+        </article>
+
+        <article id="loading-article" class="list indenteds">
+            <ul class="loading-content">
+                <li class="align-center">
+                    <img src="assets/img/loading.gif"/>
+                    <span class="loading-text">Loading</span>
+                </li>
+            </ul>
+        </article>
+
+        <article id="loading-moke" class="indented list">
+            <ul>
+            </ul>
+        </article>
+    </section>
+
+    <aside id="menu" data-transition="left">
+	    <header data-title="Menu">
+	        <nav class="on-right">
+	            <a href="#" class="buttons" data-icon="settings"></a>
+	        </nav>
+	    </header>
+
+	    <article id="loading-menu" class="list scroll active">
+	        <ul>
+	            <li data-view-article="refresh" data-icon="refresh">
+	                <strong>Loading...</strong>
+	            </li>
+	        </ul>
+	    </article>
+
+	    <article id="main-menu" class="list scroll">
+	        <ul>
+	            <li data-view-article="main-article" data-icon="home" class="active">
+	                <strong>Home</strong>
+	            </li>
+
+	            <li data-view-section="send-moke-section" data-icon="share-alt">
+	                <strong>Send a Moke</strong>
+	            </li>
+
+	            <li data-view-section="moke-list-section" data-icon="list">
+	                <strong>Moke list</strong>
+	            </li>
+	        </ul>
+	    </article>
+	</aside>
+
+
+    <!-- Lungo dependencies -->
+    <script src="assets/quojs/quo.js"></script>
+    <script src="assets/lungojs/lungo.js"></script>
+    <!-- LungoJS - Sandbox App -->
+    <script>
+        Lungo.init({
+            name: 'Kitchen Sink',
+            version: '2.1.0222',
+            history: false
+        });
+    </script>
+    <script src="assets/js/jquery-1.10.2.min.js"></script>
+    <div id="dz-root"></div>
+    <script src="http://br-cdn-files.deezer.com/js/min/dz.js"></script>
+    <script>
+        DZ.init({
+          appId  : '123703',
+          channelUrl : 'http://localhost/moke/channel.html',
+          player : {
+            onload : function(){
+            }
+          }
+        });
+    </script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
