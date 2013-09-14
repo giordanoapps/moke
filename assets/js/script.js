@@ -154,6 +154,7 @@ $(document).ready(function(){
       Lungo.Notification.show();
     },
     error: function(XMLHttpRequest, textStatus, errorThrown){ 
+      Lungo.Notification.hide();
       Lungo.Router.article("main", "error-article");
 
       Lungo.Notification.error(
@@ -184,6 +185,7 @@ $(document).ready(function(){
             Lungo.Notification.show();
           },
           error: function(XMLHttpRequest, textStatus, errorThrown){ 
+            Lungo.Notification.hide();
             Lungo.Router.article("main", "error-article");
             Lungo.Notification.error(
                 "Connection error",                      //Title
@@ -412,6 +414,7 @@ function GetMokes(method){
 
     },
     error: function(XMLHttpRequest, textStatus, errorThrown){ 
+      Lungo.Notification.hide();
       Lungo.Router.article("moke-list-section", "error-article");
 
       Lungo.Notification.error(
