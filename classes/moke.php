@@ -144,7 +144,6 @@ class moke {
 		array_push($params, $deezer->favoriteTracks);
 		array_push($params, $random);
 
-
 		return $params;
 	}
 
