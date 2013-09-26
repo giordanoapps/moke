@@ -143,15 +143,12 @@ $(document).ready(function(){
 	});*/
 
   $.ajax({
-    url: 'http://moke.herokuapp.com/ajax/facebook.php',
+    url: config.facebook_url,
     type: 'GET',
     dataType: 'json',
-    data: 'url=http://moke.herokuapp.com/mokeAndroid/',
+    data: 'url='config.returnURL,
     beforeSend: function() {
-    	/*$("#main article.indenteds.active").removeClass("active");
-    	$("#main #loading-article").addClass("active");*/
-
-      Lungo.Notification.show();
+      Lungo.Router.article("main", "loading-article");
     },
     error: function(XMLHttpRequest, textStatus, errorThrown){ 
       Lungo.Router.article("main", "error-article");
@@ -164,7 +161,6 @@ $(document).ready(function(){
       );
     },
     success: function(data) {
-      Lungo.Notification.hide();
       facebook = data;
 
       console.log("facebook: "+facebook.auth);
@@ -173,15 +169,12 @@ $(document).ready(function(){
       {
 
         $.ajax({
-          url: 'http://moke.herokuapp.com/ajax/deezer.php',
+          url: config.deezer_url,
           type: 'GET',
           dataType: 'json',
-          data: 'url=http://moke.herokuapp.com/mokeAndroid/index.html',
+          data: 'url='config.returnURL,
           beforeSend: function() {
-            /*$("#main article.indenteds.active").removeClass("active");
-            $("#main #loading-article").addClass("active");*/
-
-            Lungo.Notification.show();
+            Lungo.Router.article("main", "loading-article");
           },
           error: function(XMLHttpRequest, textStatus, errorThrown){ 
             Lungo.Router.article("main", "error-article");
@@ -194,7 +187,6 @@ $(document).ready(function(){
             );
           },
           success: function(data) {
-              Lungo.Notification.hide();
 
             deezer = data;
 
@@ -242,6 +234,7 @@ $(document).ready(function(){
 
   $("#send-moke").bind('click', function() {
     var id, i = 0;
+    var name;
     $("#fb-friends li input").each(function() {
       if($(this).prop('checked')) {
 
@@ -256,7 +249,7 @@ $(document).ready(function(){
     });
 
     $.ajax({
-      url: 'http://moke.herokuapp.com/ajax/facebook.php',
+      url: config.facebook_url,
       type: 'GET',
       dataType: 'json',
       data: 'sendmoke=true&friend='+id,
@@ -265,7 +258,7 @@ $(document).ready(function(){
       },
       error: function(XMLHttpRequest, textStatus, errorThrown){ 
           $.ajax({
-            url: 'http://moke.herokuapp.com/ajax/facebook.php',
+            url: config.facebook_url,
             type: 'GET',
             dataType: 'text',
             data: 'destroy=true',
@@ -334,7 +327,7 @@ $(document).ready(function(){
           if(i >= size || i >= 8){
             clearInterval(loop);
 
-            html += '<li class="thumb big moke-play" data-track="'+deezer.tracks[selected].id + '">';
+            html += '<li class="thumb big moke-play" data-track="'+deezer.tracks[selected].preview + '">';
             html += '<img src="' + deezer.tracks[selected].album.cover +'">';
             html += '<div>';
             html += '<strong>'+ deezer.tracks[selected].title +'</strong>';
@@ -359,9 +352,13 @@ $(document).ready(function(){
   });
 });
 
+  var Player = new Sound();
+
+  Player.init();
+
   $('body').on('click', '.moke-play',function() {
 
-    var trackId = $(this).attr("data-track");
+    var preview = $(this).attr("data-track");
 
     if(!$(this).hasClass("current")) {
       $(".moke-play.playing .headphone").removeClass("pause");
@@ -375,7 +372,8 @@ $(document).ready(function(){
       $(this).removeClass("playing");
       $(this).find(".headphone").removeClass("pause");
       $(this).find(".headphone").addClass("play");
-      DZ.player.pause();
+
+      Player.pause();
 
     }
     else {
@@ -384,9 +382,9 @@ $(document).ready(function(){
       $(this).toggleClass("playing");
 
       if($(this).hasClass("current"))
-        DZ.player.play();
+        Player.play();
       else
-        DZ.player.playTracks([trackId])
+        Player.start(preview);
       
       $(this).find(".headphone").removeClass("play");
       $(this).find(".headphone").addClass("pause");
@@ -402,7 +400,7 @@ $(document).ready(function(){
 
 function GetMokes(method){
   $.ajax({
-    url: 'http://moke.herokuapp.com/ajax/ajax_firebase.php',
+    url: config.firebase_url,
     type: 'GET',
     dataType: 'json',
     data:'method=' + method,
@@ -412,6 +410,7 @@ function GetMokes(method){
 
     },
     error: function(XMLHttpRequest, textStatus, errorThrown){ 
+      Lungo.Notification.hide();
       Lungo.Router.article("moke-list-section", "error-article");
 
       Lungo.Notification.error(

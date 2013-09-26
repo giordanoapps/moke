@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="assets/lungojs/lungo.theme.css">
     <link rel="stylesheet" href="assets/lungojs/lungo.icon.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <!-- App Stylesheet -->
 </head>
 
 <body>
@@ -52,6 +51,7 @@
                 </li>
             </ul>
         </article>
+
         <article id="error-article" class="list indenteds">
             <div class="empty">
                 <span class="icon warning-sign"></span>
@@ -61,6 +61,7 @@
                 <strong>Tap to retry</strong>
             </div>
         </article>
+
 		<article id="loading-article" class="list indenteds">
         	<ul class="loading-content">
         		<li class="align-center">
@@ -165,7 +166,7 @@
 	    </header>
 
 	    <article id="loading-menu" class="list scroll active">
-	        <ul>=
+	        <ul>
 	            <li data-view-article="refresh" data-icon="refresh">
 	                <strong>Loading...</strong>
 	            </li>
@@ -177,6 +178,7 @@
 	            <li data-view-article="main-article" data-icon="home" class="active">
 	                <strong>Home</strong>
 	            </li>
+
 	            <li data-view-section="send-moke-section" data-icon="share-alt">
 	                <strong>Send a Moke</strong>
 	            </li>
@@ -201,18 +203,8 @@
         });
     </script>
     <script src="assets/js/jquery-1.10.2.min.js"></script>
-    <div id="dz-root"></div>
-    <script src="http://br-cdn-files.deezer.com/js/min/dz.js"></script>
-    <script>
-        DZ.init({
-          appId  : '123703',
-          channelUrl : 'http://localhost/moke/channel.html',
-          player : {
-            onload : function(){
-            }
-          }
-        });
-    </script>
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/deezer.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
 </html>
