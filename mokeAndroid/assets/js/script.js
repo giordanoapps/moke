@@ -146,7 +146,7 @@ $(document).ready(function(){
     url: config.facebook_url,
     type: 'GET',
     dataType: 'json',
-    data: 'url='config.returnURL,
+    data: 'url='+config.returnURL,
     beforeSend: function() {
       Lungo.Router.article("main", "loading-article");
     },
@@ -172,7 +172,7 @@ $(document).ready(function(){
           url: config.deezer_url,
           type: 'GET',
           dataType: 'json',
-          data: 'url='config.returnURL,
+          data: 'url='+config.returnURL,
           beforeSend: function() {
             Lungo.Router.article("main", "loading-article");
           },
