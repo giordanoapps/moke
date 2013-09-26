@@ -15,7 +15,7 @@ class deezer{
 
 		$this->appId = $deezerAppId;
 		$this->secret = $deezerSecret;
-		$this->oAuth = "http://connect.deezer.com/oauth/auth.php?app_id=" . $deezerAppId . "&redirect_uri=".urlencode("http://moke.herokuapp.com/ajax/deezer.php")."&perms=basic_access,email";
+		$this->oAuth = "http://connect.deezer.com/oauth/auth.php?app_id=" . $deezerAppId . "&redirect_uri=".urlencode("http://localhost/moke/ajax/deezer.php")."&perms=basic_access,email";
 		$this->access_token = null;
 
 	}

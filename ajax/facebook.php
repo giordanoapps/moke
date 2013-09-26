@@ -19,6 +19,14 @@ else {
 	$moke->initialize();
 }
 
+if(isset($_GET["destroy"])) {
+	$moke->finalize();
+
+	echo "true";
+
+	die();
+}
+
 $ajaxReturn = new stdClass();
 
 if($moke->user) {
@@ -42,6 +50,11 @@ if($moke->user) {
 		}
 
 		$data = $moke->sendMoke($_GET,$deezer);
+
+		if(@($data == false)) {
+			echo "Error";
+			die();
+		}
 
 		$tracks = $data[0];
 
