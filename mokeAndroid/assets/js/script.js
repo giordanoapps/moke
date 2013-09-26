@@ -429,7 +429,7 @@ function GetMokes(method){
       $.each(data, function(key,value){
 
         if(value['trackId'] != null) {
-          html += '<li class="thumb big moke-play" data-track="'+value['trackId'] + '">';
+          html += '<li class="thumb big moke-play" data-track="'+value['preview'] + '">';
           html += '<img src="' + value['albumImage'] +'">';
           html += '<div>';
           html += '<strong>'+ value['senderName'] +'</strong>';
