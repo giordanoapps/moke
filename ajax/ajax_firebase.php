@@ -1,7 +1,7 @@
 <?php
 session_start();
-require("../classes/firebase.php");
 require("../config.php"); 
+require("../classes/firebase.php");
 
 $firebase = new firebaseData($CONFIG["APIS"]["firebase"]["url"], $CONFIG["APIS"]["firebase"]["token"]);
 

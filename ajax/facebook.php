@@ -1,9 +1,9 @@
 <?php
 session_start();
 
+require_once("../config.php"); 
 require("../classes/moke.php");
 require("../classes/deezer.php");
-require_once("../config.php"); 
 
 
 if(isset($_GET["url"])) {
