@@ -3,6 +3,41 @@ var deezer;
 
 $(document).ready(function(){
 
+  Lungo.dom('#moke-list-section').on('load', function(event) {
+    GetMokes('received')
+  });
+  Lungo.dom('#received-mokes').on('load', function(event) {
+    GetMokes('received')
+
+  });
+  Lungo.dom('#sent-mokes').on('load', function(event) {
+    GetMokes('sent')
+  });
+
+  var pull_received = new Lungo.Element.Pull('#received-mokes', {
+    onPull: "Pull down to refresh",      //Text on pulling
+    onRelease: "Release to get new data",//Text on releasing
+    onRefresh: "Refreshing...",          //Text on refreshing
+    callback: function() {               //Action on refresh
+      GetMokes('received')
+      pull_received.hide();
+    }
+  });
+
+  var pull_sent = new Lungo.Element.Pull('#sent-mokes', {
+    onPull: "Pull down to refresh",      //Text on pulling
+    onRelease: "Release to get new data",//Text on releasing
+    onRefresh: "Refreshing...",          //Text on refreshing
+    callback: function() {               //Action on refresh
+      GetMokes('sent')
+      pull_sent.hide();
+    }
+  });
+
+  $("#error-article").click(function(){
+    document.location.reload(true);
+  })
+
   function select_people() {
     $("#fb-friends li").bind("click",function() {
       var checkbox = $(this).find("input");
@@ -26,6 +61,14 @@ $(document).ready(function(){
       }
     })
   }
+
+  $("#login-fb-article a").click(function() {
+      Lungo.Router.article("main", "loading-article");
+  })
+
+  $("#login-deezer-article a").click(function() {
+      Lungo.Router.article("main", "loading-article");
+  })
 
   var accent_map = {
       'á':'a',
@@ -105,10 +148,23 @@ $(document).ready(function(){
     dataType: 'json',
     data: 'url=http://moke.herokuapp.com/mokeAndroid/',
     beforeSend: function() {
-    	$("#main article.indenteds.active").removeClass("active");
-    	$("#main #loading-article").addClass("active");
+    	/*$("#main article.indenteds.active").removeClass("active");
+    	$("#main #loading-article").addClass("active");*/
+
+      Lungo.Notification.show();
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown){ 
+      Lungo.Router.article("main", "error-article");
+
+      Lungo.Notification.error(
+          "Connection error",                      //Title
+          "Please verify your internet connection",     //Description
+          "cancel",                     //Icon
+          4                            //Time on screen
+      );
     },
     success: function(data) {
+      Lungo.Notification.hide();
       facebook = data;
 
       console.log("facebook: "+facebook.auth);
@@ -121,7 +177,24 @@ $(document).ready(function(){
           type: 'GET',
           dataType: 'json',
           data: 'url=http://moke.herokuapp.com/mokeAndroid/index.html',
+          beforeSend: function() {
+            /*$("#main article.indenteds.active").removeClass("active");
+            $("#main #loading-article").addClass("active");*/
+
+            Lungo.Notification.show();
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown){ 
+            Lungo.Router.article("main", "error-article");
+            Lungo.Notification.error(
+                "Connection error",                      //Title
+                "Please verify your internet connection",     //Description
+                "cancel",                     //Icon
+                4,                            //Time on screen
+                afterNotification             //callback
+            );
+          },
           success: function(data) {
+              Lungo.Notification.hide();
 
             deezer = data;
 
@@ -129,16 +202,14 @@ $(document).ready(function(){
 
             if(deezer.auth == true)
             {
-		    	$("#main article.indenteds.active").removeClass("active");
-		    	$("#main #main-article").addClass("active");
-		    	$("#loading-menu").removeClass("active");
-		    	$("#main-menu").addClass("active");
+              Lungo.Router.article("main", "main-article");
+    		    	$("#loading-menu").removeClass("active");
+    		    	$("#main-menu").addClass("active");
             }
             else
             {
-		    	$("#main article.indenteds.active").removeClass("active");
-		    	$("#main #login-deezer-article").addClass("active");
-		        $("#login-deezer-article a").attr("href", deezer.loginURL);
+              Lungo.Router.article("main", "login-deezer-article");
+		          $("#login-deezer-article a").attr("href", deezer.loginURL);
             }
           },
         });
@@ -163,8 +234,7 @@ $(document).ready(function(){
       }
       else
       {
-    	$("article.indenteds.active").removeClass("active");
-    	$("#login-fb-article").addClass("active");
+        Lungo.Router.article("main", "login-fb-article");
         $("#login-fb-article a").attr("href", facebook.loginURL);
       }
     },
@@ -191,30 +261,49 @@ $(document).ready(function(){
       dataType: 'json',
       data: 'sendmoke=true&friend='+id,
       beforeSend: function() {
-
-        $("#send-moke-section article.indenteds.active").removeClass("active");
-        $("#send-moke-section #loading-article").addClass("active");
-      console.log("before...");
+        Lungo.Router.article("send-moke-section", "loading-article");
       },
       error: function(XMLHttpRequest, textStatus, errorThrown){ 
-        console.log("erro");
+          $.ajax({
+            url: 'http://moke.herokuapp.com/ajax/facebook.php',
+            type: 'GET',
+            dataType: 'text',
+            data: 'destroy=true',
+            beforeSend: function() {
+              Lungo.Notification.error(
+                  "Your session has been expired",                      //Title
+                  "Please re-login to use the app",     //Description
+                  "cancel",                     //Icon
+                  4                            //Time on screen
+              );
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown){ 
+              Lungo.Router.article("send-moke-section", "error-article");
 
-        console.log(XMLHttpRequest);
-        console.log(textStatus);
-        console.log(errorThrown);
+              Lungo.Notification.error(
+                  "Connection error",                      //Title
+                  "Please verify your internet connection",     //Description
+                  "cancel",                     //Icon
+                  4                            //Time on screen
+              );
+            },
+            success: function(data) {
+              document.location.reload(true);
+            },
+          });
       },
       success: function(data) {
 
         console.log("success...");
-        $("#sent-moke-section article.indenteds.active").removeClass("active");
-        $("#sent-moke-section #loading-moke").addClass("active");
+        Lungo.Router.article("sent-moke-section", "loading-moke");
 
-        var target = $("#random");
+        var target = $("#loading-moke ul");
         var selected = data.selected;
         var i = 0;
         var j = 0;
         var size = deezer.tracks.length;
         var content;
+        var html = "";
 
         target.fadeOut();
 
@@ -225,25 +314,41 @@ $(document).ready(function(){
 
           console.log(j);
 
-          content = deezer.tracks[j].artist.name + "<br/>" + deezer.tracks[j].title;
-          content_cover = "<img class='cover' src='"+deezer.tracks[j].album.cover+"'/>";
+          html += '<li class="thumb big moke-play">';
+          html += '<img src="' + deezer.tracks[j].album.cover +'">';
+          html += '<div>';
+          html += '<strong>'+ deezer.tracks[j].title +'</strong>';
+          html += '<small>'+ deezer.tracks[j].artist.name +'</small>';
+          html += '<small>'+ deezer.tracks[j].album.title +'</small>';
+          html += '</div>';
+          html += '</li>';
 
-          target.html(content + content_cover);
+          target.html(html);
 
           target.fadeIn(500).fadeOut(500);
 
           i++;
 
+          html = "";
+
           if(i >= size || i >= 8){
             clearInterval(loop);
 
-            content = '<span class="icon play" data-track="'+deezer.tracks[selected].id + '"></span>'
-            content += "<span style='color:#e67e22'>"+deezer.tracks[selected].artist.name + "<br/>" + deezer.tracks[selected].title+"</span>";
-            content_cover = "<img class='cover' src='"+deezer.tracks[selected].album.cover+"'/>";
-            target.html(content + content_cover);
+            html += '<li class="thumb big moke-play" data-track="'+deezer.tracks[selected].id + '">';
+            html += '<img src="' + deezer.tracks[selected].album.cover +'">';
+            html += '<div>';
+            html += '<strong>'+ deezer.tracks[selected].title +'</strong>';
+            html += '<small>'+ deezer.tracks[selected].artist.name +'</small>';
+            html += '<small>'+ deezer.tracks[selected].album.title +'</small>';
+            html += '<a href="#" class="on-right">';
+            html += '<span class="headphone icon play"></span>';
+            html += '</a>';
+            html += '</div>';
+            html += '</li>';
+
+            target.html(html);
 
             target.fadeIn();
-            headphone();
           }
 
         }, 1000);
@@ -254,6 +359,47 @@ $(document).ready(function(){
   });
 });
 
+  $('body').on('click', '.moke-play',function() {
+
+    var trackId = $(this).attr("data-track");
+
+    if(!$(this).hasClass("current")) {
+      $(".moke-play.playing .headphone").removeClass("pause");
+      $(".moke-play.playing .headphone").addClass("play");
+      $(".moke-play.playing").removeClass("playing");
+    }
+
+    if($(this).hasClass("playing")) {
+
+      console.log("play")
+      $(this).removeClass("playing");
+      $(this).find(".headphone").removeClass("pause");
+      $(this).find(".headphone").addClass("play");
+      DZ.player.pause();
+
+    }
+    else {
+      
+      console.log("pause")
+      $(this).toggleClass("playing");
+
+      if($(this).hasClass("current"))
+        DZ.player.play();
+      else
+        DZ.player.playTracks([trackId])
+      
+      $(this).find(".headphone").removeClass("play");
+      $(this).find(".headphone").addClass("pause");
+
+    }
+
+    if(!$(this).hasClass("current")) {
+      $(".moke-play.current").removeClass("current");
+      $(this).addClass("current");
+    }
+
+  });
+
 function GetMokes(method){
   $.ajax({
     url: 'http://moke.herokuapp.com/ajax/ajax_firebase.php',
@@ -262,28 +408,57 @@ function GetMokes(method){
     data:'method=' + method,
     beforeSend: function() {
 
-      $('#loading').addClass('current');
+      Lungo.Notification.show();
 
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown){ 
+      Lungo.Router.article("moke-list-section", "error-article");
+
+      Lungo.Notification.error(
+          "Connection error",                      //Title
+          "Please verify your internet connection",     //Description
+          "cancel",                     //Icon
+          4                            //Time on screen
+      );
     },
     success: function(data) {
       
+      Lungo.Notification.hide();
       var html ='';
+      var count = 0;
       $.each(data, function(key,value){
 
-        console.log('key : ' + key + ' value : ' + value['artist']);
-
-        html += '<li><label><span></span>' + value['senderName'] + '</label>' +
-                 '<img class="cover_2" src="' + value['albumImage'] +'">'+
-                 '<span class="music">' + value['track'] +'</span>' +
-                  '<span class="artist">' + value['artist'] + '</span>'+
-                  '<div class="headphone" data-track="'+value['trackId'] + '"></div>'+
-                   '<div class="calendar"></div>' +
-                    '<label class="calendar">' + value['date'] + '</label>'+
-                  '</li>';
-
+        if(value['trackId'] != null) {
+          html += '<li class="thumb big moke-play" data-track="'+value['trackId'] + '">';
+          html += '<img src="' + value['albumImage'] +'">';
+          html += '<div>';
+          html += '<strong>'+ value['senderName'] +'</strong>';
+          html += '<small>'+ value['track'] +'</small>';
+          html += '<small>'+ value['artist'] +'</small>';
+          html += '<a href="#" class="on-right">';
+          html += '<span class="headphone icon play"></span>';
+          html += '</a>';
+          html += '</div>';
+          html += '</li>';
+          count++;
+        }
       });
-      $('#' + method).html(html);
-      headphone();
+
+      var target;
+      var bar;
+
+      if(method == 'received') {
+        target = $("#received-mokes ul");
+        Lungo.Element.count("#received-mokes-bar", count);
+      }
+      else {
+        target = $("#sent-mokes ul");
+        Lungo.Element.count("#sent-mokes-bar", count);
+      }
+
+      target.html(html);
+
+     // moke_play();
     }
 
 

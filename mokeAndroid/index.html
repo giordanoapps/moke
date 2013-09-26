@@ -1,11 +1,9 @@
-
 <!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Brownie - Lungo 2.2</title>
+    <title>Moke - v0.1</title>
     <meta name="description" content="">
-    <meta name="author" content="Javier Jiménez Villar (@soyjavi)">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -13,7 +11,6 @@
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="cleartype" content="on">
 
-    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="assets/lungojs/lungo.css">
     <link rel="stylesheet" href="assets/lungojs/lungo.theme.css">
     <link rel="stylesheet" href="assets/lungojs/lungo.icon.css">
@@ -28,7 +25,7 @@
                 <a href="#" data-view-aside="menu" data-icon="menu"></a>
             </nav>
             <nav class="on-right">
-                <a href="#"  ><abbr class="text tiny ">v2.2</abbr></a>
+                <a href="#"><abbr class="text tiny ">v0.1</abbr></a>
             </nav>
         </header>
 
@@ -55,7 +52,15 @@
                 </li>
             </ul>
         </article>
-
+        <article id="error-article" class="list indenteds">
+            <div class="empty">
+                <span class="icon warning-sign"></span>
+                <strong>Connection error</strong>
+                <p>Please verify if you have a solid internet connection.</p>
+                <br/>
+                <strong>Tap to retry</strong>
+            </div>
+        </article>
 		<article id="loading-article" class="list indenteds">
         	<ul class="loading-content">
         		<li class="align-center">
@@ -84,12 +89,58 @@
 	    </article>
 	</section>
 
+    <section id="moke-list-section" data-transition="slide" data-pull="normal">
+        <header data-title="Moke List" data-back="chevron-left">
+        </header>
+
+        <nav data-control="groupbar">
+            <a href="#" data-view-article="received-mokes" data-label="Received Mokes" class="active"></a>
+            <a href="#" data-view-article="sent-mokes" data-label="Mokes Sent"></a>
+        </nav>
+
+        <article id="received-mokes" class="indented list scroll">
+            <ul>
+            </ul>
+        </article>
+        <article id="sent-mokes" class="indented list scroll">
+            <ul>
+            </ul>
+        </article>
+
+        <article id="error-article" class="list indenteds">
+            <div class="empty">
+                <span class="icon warning-sign"></span>
+                <strong>Connection error</strong>
+                <p>Please verify if you have a solid internet connection.</p>
+                <br/>
+                <strong>Tap to retry</strong>
+            </div>
+        </article>
+
+        <footer>
+            <nav>
+                <a id="received-mokes-bar" href="#" data-view-article="received-mokes" data-icon="reply" class="active"></a>
+                <a id="sent-mokes-bar" href="#" data-view-article="sent-mokes" data-icon="share-alt"></a>
+            </nav>
+        </footer>
+    </section>
+
     <section id="sent-moke-section" data-transition="slide">
         <header data-title="Send Moke">
             <nav class="on-left">
                 <button id="main-section" data-view-section="main" data-icon="chevron-left"></button>
             </nav>
         </header>
+
+        <article id="error-article" class="list indenteds">
+            <div class="empty">
+                <span class="icon warning-sign"></span>
+                <strong>Connection error</strong>
+                <p>Please verify if you have a solid internet connection.</p>
+                <br/>
+                <strong>Tap to retry</strong>
+            </div>
+        </article>
 
         <article id="loading-article" class="list indenteds">
             <ul class="loading-content">
@@ -100,9 +151,8 @@
             </ul>
         </article>
 
-        <article id="loading-moke" class="indented list scroll">
+        <article id="loading-moke" class="indented list">
             <ul>
-                <li id="random"></li>
             </ul>
         </article>
     </section>
@@ -115,8 +165,7 @@
 	    </header>
 
 	    <article id="loading-menu" class="list scroll active">
-	        <ul>
-	            <!-- Basic Layout -->
+	        <ul>=
 	            <li data-view-article="refresh" data-icon="refresh">
 	                <strong>Loading...</strong>
 	            </li>
@@ -125,27 +174,15 @@
 
 	    <article id="main-menu" class="list scroll">
 	        <ul>
-	            <!-- Basic Layout -->
 	            <li data-view-article="main-article" data-icon="home" class="active">
 	                <strong>Home</strong>
 	            </li>
-
-	            <!-- Layout & Navigation -->
 	            <li data-view-section="send-moke-section" data-icon="share-alt">
-	                <div class="tag on-right">5</div>
 	                <strong>Send a Moke</strong>
 	            </li>
 
-	            <!-- List -->
-	            <li data-view-article="list" data-async="static/articles/list.html" data-icon="list">
-	                <div class="tag on-right">22</div>
+	            <li data-view-section="moke-list-section" data-icon="list">
 	                <strong>Moke list</strong>
-	            </li>
-
-	            <!-- Forms -->
-	            <li data-view-section="form" data-icon="signout">
-	                <div class="tag on-right">8</div>
-	                <strong>Logout</strong>
 	            </li>
 	        </ul>
 	    </article>
@@ -164,6 +201,18 @@
         });
     </script>
     <script src="assets/js/jquery-1.10.2.min.js"></script>
+    <div id="dz-root"></div>
+    <script src="http://br-cdn-files.deezer.com/js/min/dz.js"></script>
+    <script>
+        DZ.init({
+          appId  : '123703',
+          channelUrl : 'http://localhost/moke/channel.html',
+          player : {
+            onload : function(){
+            }
+          }
+        });
+    </script>
     <script src="assets/js/script.js"></script>
 </body>
 </html>

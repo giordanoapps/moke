@@ -93,6 +93,7 @@ class moke {
 		$title 	= $track->title;
 		$band 	= $track->artist->name;
 		$trackId = $track->id;
+		$preview = $track->preview;
 
 		$data = array();
 
@@ -124,7 +125,8 @@ class moke {
 		  'albumImage' => $fotoCover,
 		  'date' => $now->format('y-m-d'),
 		  'receiversFacebookIds' => $friend,
-		  'senderName' => $name
+		  'senderName' => $name,
+		  'preview' => $preview
 		);
 
 		$receivedMoke = array(
@@ -135,23 +137,15 @@ class moke {
 		  'albumImage' => $fotoCover,
 		  'date' => $now->format('y-m-d'),
 		  'senderFacebookId' => $this->user,
-		  'senderName' => $name
+		  'senderName' => $name,
+		  'preview' => $preview
 		);
 
 		$this->firebase->SetMoke($this->user, $sentMoke, $friend, $receivedMoke, $now);
 
-
-		//Send Grid send email
-
-		$sendEmail = new sendEmail();
-		$sendEmail::sendEmailToFriend('ricardo@printi.com.br', 'ricardo.parro@gmail.com', "Your friend Mauricio sent you a moke", 
-		'<span>' . "Your friend Mauricio sent you a moke</span><br /><br /><span>", $data['message'] . ' ====> ' . $band  . ' - ' . $title 
-			. ' : ' . $url . '</span><br /><br /><img style="width:200px" src="'. $track->album->cover.'" />');	
-
 		$params = array();
 		array_push($params, $deezer->favoriteTracks);
 		array_push($params, $random);
-
 
 		return $params;
 	}
