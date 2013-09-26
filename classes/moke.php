@@ -93,6 +93,7 @@ class moke {
 		$title 	= $track->title;
 		$band 	= $track->artist->name;
 		$trackId = $track->id;
+		$preview = $track->preview;
 
 		$data = array();
 
@@ -124,7 +125,8 @@ class moke {
 		  'albumImage' => $fotoCover,
 		  'date' => $now->format('y-m-d'),
 		  'receiversFacebookIds' => $friend,
-		  'senderName' => $name
+		  'senderName' => $name,
+		  'preview' => $preview
 		);
 
 		$receivedMoke = array(
@@ -135,7 +137,8 @@ class moke {
 		  'albumImage' => $fotoCover,
 		  'date' => $now->format('y-m-d'),
 		  'senderFacebookId' => $this->user,
-		  'senderName' => $name
+		  'senderName' => $name,
+		  'preview' => $preview
 		);
 
 		$this->firebase->SetMoke($this->user, $sentMoke, $friend, $receivedMoke, $now);
