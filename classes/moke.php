@@ -97,7 +97,7 @@ class moke {
 
 		$data = array();
 
-		$data['message'] = "Hey!\nCheck out this Moke!";
+		$data['message'] = "You've been poked w/ music.\n Check out this moke!";
 		$data['tags']= $friend;
 		$data['place']='155021662189'; 
 
